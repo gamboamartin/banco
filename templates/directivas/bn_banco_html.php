@@ -1,22 +1,25 @@
 <?php
 namespace html;
 
+use gamboamartin\banco\controllers\controlador_bn_banco;
 use gamboamartin\banco\controllers\controlador_bn_tipo_banco;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
+use models\bn_banco;
 use models\bn_tipo_banco;
 use PDO;
 use stdClass;
 
-class bn_tipo_banco_html extends html_controler {
+class bn_banco_html extends html_controler {
 
-    private function asigna_inputs(controlador_bn_tipo_banco $controler, stdClass $inputs): array|stdClass
+    private function asigna_inputs(controlador_bn_banco $controler, stdClass $inputs): array|stdClass
     {
         $controler->inputs->select = new stdClass();
+        $controler->inputs->select->bn_tipo_banco_id = $inputs->selects->bn_tipo_banco_id;
         return $controler->inputs;
     }
 
-    public function genera_inputs_alta(controlador_bn_tipo_banco $controler, PDO $link): array|stdClass
+    public function genera_inputs_alta(controlador_bn_banco $controler, PDO $link): array|stdClass
     {
         $inputs = $this->init_alta(link: $link);
         if(errores::$error){
@@ -31,7 +34,7 @@ class bn_tipo_banco_html extends html_controler {
         return $inputs_asignados;
     }
 
-    private function genera_inputs_modifica(controlador_bn_tipo_banco $controler,PDO $link,
+    private function genera_inputs_modifica(controlador_bn_banco $controler,PDO $link,
                                             stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->init_modifica(link: $link, row_upd: $controler->row_upd, params: $params);
@@ -84,7 +87,7 @@ class bn_tipo_banco_html extends html_controler {
         return $alta_inputs;
     }
 
-    public function inputs_bn_tipo_banco(controlador_bn_tipo_banco $controlador,
+    public function inputs_bn_banco(controlador_bn_banco $controlador,
                                        stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->genera_inputs_modifica(controler: $controlador,
@@ -98,21 +101,37 @@ class bn_tipo_banco_html extends html_controler {
     private function selects_alta(PDO $link): array|stdClass
     {
         $selects = new stdClass();
+
+        $select = (new bn_tipo_banco_html(html:$this->html_base))->select_bn_tipo_banco_id(
+            cols: 6, con_registros:true, id_selected:-1,link: $link);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al generar select',data:  $select);
+        }
+        $selects->bn_tipo_banco_id = $select;
+
         return $selects;
     }
 
     private function selects_modifica(PDO $link, stdClass $row_upd): array|stdClass
     {
         $selects = new stdClass();
+
+        $select = (new bn_tipo_banco_html(html:$this->html_base))->select_bn_tipo_banco_id(
+            cols: 6, con_registros:true, id_selected:$row_upd->bn_tipo_banco_id,link: $link);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al generar select',data:  $select);
+        }
+        $selects->bn_tipo_banco_id = $select;
+
         return $selects;
     }
 
-    public function select_bn_tipo_banco_id(int $cols, bool $con_registros, int $id_selected, PDO $link): array|string
+    public function select_bn_banco_id(int $cols, bool $con_registros, int $id_selected, PDO $link): array|string
     {
-        $modelo = new bn_tipo_banco(link: $link);
+        $modelo = new bn_banco(link: $link);
 
         $select = $this->select_catalogo(cols:$cols,con_registros:$con_registros,id_selected:$id_selected,
-            modelo: $modelo,label: 'Tipo banco',required: true);
+            modelo: $modelo,label: 'Banco',required: true);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al generar select', data: $select);
         }
