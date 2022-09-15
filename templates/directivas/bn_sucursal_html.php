@@ -1,6 +1,7 @@
 <?php
 namespace html;
 
+use base\orm\modelo_base;
 use gamboamartin\banco\controllers\controlador_bn_banco;
 use gamboamartin\banco\controllers\controlador_bn_sucursal;
 use gamboamartin\banco\controllers\controlador_bn_tipo_banco;
@@ -101,7 +102,26 @@ class bn_sucursal_html extends html_controler {
         return $inputs;
     }
 
-    private function selects_alta(array $keys_selects, PDO $link): array|stdClass
+    private function params_select(string $name_model, stdClass $params): stdClass|array
+    {
+        $name_model = trim($name_model);
+        if($name_model === ''){
+            return $this->error->error(mensaje: 'Error $name_model esta vacio', data: $name_model);
+        }
+        $data = new stdClass();
+
+        $data->cols = $params->cols ?? 12;
+        $data->con_registros = $params->con_registros ?? true;
+        $data->id_selected = $params->id_selected ?? -1;
+        $data->label = $params->label ?? str_replace('_',' ', strtoupper($name_model));
+        $data->required = $params->required ?? true;
+        $data->disabled = $params->disabled ?? false;
+        $data->filtro = $params->filtro ?? array();
+
+        return $data;
+    }
+
+    protected function selects_alta(array $keys_selects, PDO $link): array|stdClass
     {
 
         $selects = new stdClass();
@@ -117,6 +137,38 @@ class bn_sucursal_html extends html_controler {
 
         return $selects;
 
+    }
+    private function select_aut(PDO $link, string $name_model, stdClass $params, stdClass $selects, string $tabla = ''): array|stdClass
+    {
+        $name_model = trim($name_model);
+        if($name_model === ''){
+            return $this->error->error(mensaje: 'Error $name_model esta vacio', data: $name_model);
+        }
+
+        $params_select = $this->params_select(name_model: $name_model, params: $params);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al maquetar params', data: $params_select);
+        }
+
+        if($tabla === ''){
+            $tabla = $name_model;
+        }
+
+        $name_select_id = $tabla.'_id';
+        $modelo = (new modelo_base($link))->genera_modelo(modelo: $name_model);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al generar modelo', data: $modelo);
+        }
+        $select  = $this->select_catalogo(cols: $params_select->cols, con_registros: $params_select->con_registros,
+            id_selected: $params_select->id_selected, modelo: $modelo, disabled: $params_select->disabled,
+            filtro: $params_select->filtro, label: $params_select->label, required: $params_select->required);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al generar select', data: $select);
+        }
+
+        $selects->$name_select_id = $select;
+
+        return $selects;
     }
 
 
