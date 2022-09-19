@@ -51,7 +51,9 @@ class controlador_bn_tipo_banco extends system {
             return $this->retorno_error(mensaje: 'Error al generar template',data:  $r_alta, header: $header,ws:$ws);
         }
 
-        $inputs = (new bn_tipo_banco_html(html: $this->html_base))->genera_inputs_alta(controler: $this, link: $this->link);
+        $keys_selects = array();
+        $inputs = (new bn_tipo_banco_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
+            keys_selects:$keys_selects,link: $this->link);
         if(errores::$error){
             $error = $this->errores->error(mensaje: 'Error al generar inputs',data:  $inputs);
             print_r($error);
