@@ -10,7 +10,6 @@ namespace gamboamartin\banco\controllers;
 
 use config\generales;
 use gamboamartin\errores\errores;
-use JsonException;
 use stdClass;
 
 class controlador_adm_session extends \gamboamartin\controllers\controlador_adm_session {
@@ -18,13 +17,13 @@ class controlador_adm_session extends \gamboamartin\controllers\controlador_adm_
     public string $include_menu = '';
     public string $mensaje_html = '';
 
+
     /**
-     * Funcion de controlador donde se ejecutaran siempre que haya un acceso denegado
-     * @version 1.0.0
-     * @param bool $header Si header es true cualquier error se mostrara en el html y cortara la ejecucion del sistema
-     *              En false retornara un array si hay error y un string con formato html
-     * @param bool $ws Si ws es true retornara el resultado en formato de json
-     * @return array vacio siempre
+     * Genera una view denegado
+     * @param bool $header Si header muestra en http
+     * @param bool $ws si ws muestra en json
+     * @return array
+     * @version 0.10.2
      */
     public function denegado(bool $header, bool $ws = false): array
     {
@@ -36,18 +35,7 @@ class controlador_adm_session extends \gamboamartin\controllers\controlador_adm_
 
     }
 
-    /**
-     * Funcion de controlador donde se ejecutaran los elementos necesarios para poder mostrar el inicio en
-     *      session/inicio
-     * @version 1.0.0
-     * @param bool $aplica_template Si aplica template buscara el header de la base
-     *              No recomendado para vistas ajustadas como esta
-     * @param bool $header Si header es true cualquier error se mostrara en el html y cortara la ejecucion del sistema
-     *              En false retornara un array si hay error y un string con formato html
-     * @param bool $ws Si ws es true retornara el resultado en formato de json
-     * @return string|array string = html array = error
-     * @throws JsonException si hay error en forma ws
-     */
+
     public function inicio(bool $aplica_template = false, bool $header = true, bool $ws = false): string|array
     {
 
