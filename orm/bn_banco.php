@@ -9,7 +9,7 @@ class bn_banco extends modelo{
 
     public function __construct(PDO $link){
         $tabla = __CLASS__;
-        $columnas = array($tabla=>false,'bn_tipo_banco');
+        $columnas = array($tabla=>false,'bn_tipo_banco'=>$tabla);
         $campos_obligatorios = array();
 
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
