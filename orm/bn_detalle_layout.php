@@ -14,8 +14,8 @@ class bn_detalle_layout extends modelo{
         $campos_view['nom_nomina_id']['type'] = 'selects';
         $campos_view['nom_nomina_id']['model'] = (new nom_nomina($link));
 
-        $campos_view['nom_layout_id']['type'] = 'selects';
-        $campos_view['nom_layout_id']['model'] = (new bn_layout($link));
+        $campos_view['bn_layout_id']['type'] = 'selects';
+        $campos_view['bn_layout_id']['model'] = (new bn_layout($link));
 
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
             columnas: $columnas, campos_view: $campos_view);

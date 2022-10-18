@@ -138,7 +138,7 @@ class bn_layout_html extends html_controler {
         return $selects;
     }
 
-    public function select_nom_layout_id(int $cols, bool $con_registros, int $id_selected, PDO $link,
+    public function select_bn_layout_id(int $cols, bool $con_registros, int $id_selected, PDO $link,
                                          bool $disabled = false, array $filtro = array()): array|string
     {
         $modelo = new bn_layout(link: $link);

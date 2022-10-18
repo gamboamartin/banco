@@ -34,8 +34,8 @@ class controlador_bn_detalle_layout extends system {
         $keys_selects['nom_nomina_id'] = new stdClass();
         $keys_selects['nom_nomina_id']->label = 'Nomina';
 
-        $keys_selects['nom_layout_id'] = new stdClass();
-        $keys_selects['nom_layout_id']->label = 'Layout';
+        $keys_selects['bn_layout_id'] = new stdClass();
+        $keys_selects['bn_layout_id']->label = 'Layout';
 
         $inputs = (new bn_detalle_layout_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
             modelo: $this->modelo, link: $this->link,keys_selects: $keys_selects);

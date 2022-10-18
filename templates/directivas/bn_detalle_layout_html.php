@@ -15,7 +15,7 @@ class bn_detalle_layout_html extends html_controler {
     {
         $controler->inputs->select = new stdClass();
         $controler->inputs->select->nom_nomina_id = $inputs['selects']->nom_nomina_id;
-        $controler->inputs->select->nom_layout_id = $inputs['selects']->nom_layout_id;
+        $controler->inputs->select->bn_layout_id = $inputs['selects']->bn_layout_id;
 
         return $controler->inputs;
     }
@@ -25,7 +25,7 @@ class bn_detalle_layout_html extends html_controler {
 
         $controler->inputs->select = new stdClass();
         $controler->inputs->select->nom_nomina_id = $inputs->selects->nom_nomina_id;
-        $controler->inputs->select->nom_layout_id = $inputs->selects->nom_layout_id;
+        $controler->inputs->select->bn_layout_id = $inputs->selects->bn_layout_id;
 
         return $controler->inputs;
     }
@@ -95,12 +95,12 @@ class bn_detalle_layout_html extends html_controler {
         }
         $selects->nom_nomina_id = $select;
 
-        $select = (new bn_layout_html(html:$this->html_base))->select_nom_layout_id(
-            cols: 12, con_registros:true, id_selected:$row_upd->nom_layout_id,link: $link);
+        $select = (new bn_layout_html(html:$this->html_base))->select_bn_layout_id(
+            cols: 12, con_registros:true, id_selected:$row_upd->bn_layout_id,link: $link);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al generar select',data:  $select);
         }
-        $selects->nom_layout_id = $select;
+        $selects->bn_layout_id = $select;
 
         return $selects;
     }

@@ -7,5 +7,5 @@
 <?php echo $controlador->inputs->descripcion_select; ?>
 <?php echo $controlador->inputs->alias; ?>
 <?php echo $controlador->inputs->select->nom_nomina_id; ?>
-<?php echo $controlador->inputs->select->nom_layout_id; ?>
+<?php echo $controlador->inputs->select->bn_layout_id; ?>
 <?php include (new views())->ruta_templates.'botons/submit/modifica_bd.php';?>
