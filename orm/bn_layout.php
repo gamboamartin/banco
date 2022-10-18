@@ -3,7 +3,7 @@ namespace models;
 use base\orm\modelo;
 use PDO;
 
-class nom_layout extends modelo{
+class bn_layout extends modelo{
 
     public function __construct(PDO $link){
         $tabla = __CLASS__;

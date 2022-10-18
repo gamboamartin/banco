@@ -2,17 +2,16 @@
 namespace html;
 
 use base\orm\modelo;
+use gamboamartin\banco\controllers\controlador_bn_layout;
 use gamboamartin\errores\errores;
-use gamboamartin\nomina\controllers\controlador_nom_layout;
 use gamboamartin\system\html_controler;
-use models\bn_sucursal;
-use models\nom_layout;
+use models\bn_layout;
 use PDO;
 use stdClass;
 
-class nom_layout_html extends html_controler {
+class bn_layout_html extends html_controler {
 
-    private function asigna_inputs_alta(controlador_nom_layout $controler, array|stdClass $inputs): array|stdClass
+    private function asigna_inputs_alta(controlador_bn_layout $controler, array|stdClass $inputs): array|stdClass
     {
         $controler->inputs->select = new stdClass();
         $controler->inputs->select->bn_sucursal_id = $inputs['selects']->bn_sucursal_id;
@@ -23,7 +22,7 @@ class nom_layout_html extends html_controler {
         return $controler->inputs;
     }
 
-    private function asigna_inputs_modifica(controlador_nom_layout $controler, stdClass $inputs): array|stdClass
+    private function asigna_inputs_modifica(controlador_bn_layout $controler, stdClass $inputs): array|stdClass
     {
 
         $controler->inputs->select = new stdClass();
@@ -34,7 +33,7 @@ class nom_layout_html extends html_controler {
         return $controler->inputs;
     }
 
-    public function genera_inputs_alta(controlador_nom_layout $controler, modelo $modelo, PDO $link, array $keys_selects = array()): array|stdClass
+    public function genera_inputs_alta(controlador_bn_layout $controler, modelo $modelo, PDO $link, array $keys_selects = array()): array|stdClass
     {
         $inputs = $this->init_alta2(row_upd: $controler->row_upd,modelo: $controler->modelo,link: $link,keys_selects:  $keys_selects);
         if(errores::$error){
@@ -49,7 +48,7 @@ class nom_layout_html extends html_controler {
         return $inputs_asignados;
     }
 
-    private function genera_inputs_modifica(controlador_nom_layout $controler,PDO $link,
+    private function genera_inputs_modifica(controlador_bn_layout $controler,PDO $link,
                                             stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->init_modifica(link: $link, row_upd: $controler->row_upd, params: $params);
@@ -107,7 +106,7 @@ class nom_layout_html extends html_controler {
         return $div;
     }
 
-    public function inputs_nom_layout(controlador_nom_layout $controlador,
+    public function inputs_bn_layout(controlador_bn_layout $controlador,
                                              stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->genera_inputs_modifica(controler: $controlador,
@@ -142,7 +141,7 @@ class nom_layout_html extends html_controler {
     public function select_nom_layout_id(int $cols, bool $con_registros, int $id_selected, PDO $link,
                                          bool $disabled = false, array $filtro = array()): array|string
     {
-        $modelo = new nom_layout(link: $link);
+        $modelo = new bn_layout(link: $link);
 
         $select = $this->select_catalogo(cols: $cols, con_registros: $con_registros, id_selected: $id_selected,
             modelo: $modelo, disabled: $disabled, filtro: $filtro, label: 'Layout', required: true);

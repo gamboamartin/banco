@@ -1,22 +1,22 @@
 <?php
 
-namespace gamboamartin\nomina\controllers;
+namespace gamboamartin\banco\controllers;
 
 use gamboamartin\errores\errores;
 use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
-use html\nom_layout_html;
-use models\nom_layout;
+use html\bn_layout_html;
+use models\bn_layout;
 use PDO;
 use stdClass;
 
-class controlador_nom_layout extends system {
+class controlador_bn_layout extends system {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
-        $modelo = new nom_layout(link: $link);
-        $html_ = new nom_layout_html(html: $html);
+        $modelo = new bn_layout(link: $link);
+        $html_ = new bn_layout_html(html: $html);
         $obj_link = new links_menu($this->registro_id);
         parent::__construct(html:$html_, link: $link,modelo:  $modelo, obj_link: $obj_link, paths_conf: $paths_conf);
 
@@ -41,7 +41,7 @@ class controlador_nom_layout extends system {
         $keys_selects['fecha_pago']->place_holder = 'Fecha Pago';
 
 
-        $inputs = (new nom_layout_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
+        $inputs = (new bn_layout_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
             modelo: $this->modelo, link: $this->link,keys_selects: $keys_selects);
         if(errores::$error){
             $error = $this->errores->error(mensaje: 'Error al generar inputs',data:  $inputs);
@@ -58,7 +58,7 @@ class controlador_nom_layout extends system {
             return $this->errores->error(mensaje: 'Error al generar template',data:  $r_modifica);
         }
 
-        $inputs = (new nom_layout_html(html: $this->html_base))->inputs_nom_layout(
+        $inputs = (new bn_layout_html(html: $this->html_base))->inputs_bn_layout(
             controlador:$this, params: $params);
         if(errores::$error){
             return $this->errores->error(mensaje: 'Error al inicializar inputs',data:  $inputs);
