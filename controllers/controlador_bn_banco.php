@@ -13,24 +13,7 @@ use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
 use html\bn_banco_html;
-use html\bn_tipo_banco_html;
-use html\cat_sat_moneda_html;
-use html\com_cliente_html;
-use html\com_producto_html;
-use html\com_sucursal_html;
-use html\em_empleado_html;
-use html\nom_par_deduccion_html;
-use html\nom_par_percepcion_html;
-use html\nom_percepcion_html;
 use models\bn_banco;
-use models\bn_tipo_banco;
-use models\com_cliente;
-use models\com_producto;
-use models\com_sucursal;
-use models\em_empleado;
-use models\nom_par_deduccion;
-use models\nom_par_percepcion;
-use models\nom_percepcion;
 use PDO;
 use stdClass;
 
@@ -40,7 +23,7 @@ class controlador_bn_banco extends system {
                                 stdClass $paths_conf = new stdClass()){
         $modelo = new bn_banco(link: $link);
         $html_ = new bn_banco_html(html: $html);
-        $obj_link = new links_menu($this->registro_id);
+        $obj_link = new links_menu(link: $link, registro_id:$this->registro_id);
         parent::__construct(html:$html_, link: $link,modelo:  $modelo, obj_link: $obj_link, paths_conf: $paths_conf);
 
         $this->titulo_lista = 'Banco';
