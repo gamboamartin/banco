@@ -55,11 +55,9 @@
         "gamboa.martin/system": "dev-main",
         "gamboa.martin/js_base": "dev-master",
         "gamboa.martin/services": "dev-main",
-        "gamboa.martin/organigrama": "dev-main",
         "gamboa.martin/cat_sat": "dev-main",
         "gamboa.martin/direccion_postal": "dev-main",
         "gamboa.martin/documento": "dev-master",
-        "gamboa.martin/comercial": "dev-master",
         "gamboa.martin/xml_cfdi_4": "dev-master",
         "gamboa.martin/proceso": "dev-main"
     },
