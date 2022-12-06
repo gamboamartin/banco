@@ -1,21 +1,9 @@
 <?php
 namespace tests\controllers;
 
-use controllers\controlador_cat_sat_tipo_persona;
 use gamboamartin\banco\controllers\controlador_adm_session;
 use gamboamartin\errores\errores;
-use gamboamartin\template_1\html;
-use gamboamartin\test\liberator;
 use gamboamartin\test\test;
-use html\nom_conf_factura_html;
-use JsonException;
-use models\em_cuenta_bancaria;
-use models\fc_cfd_partida;
-use models\fc_factura;
-use models\fc_partida;
-use models\nom_nomina;
-use models\nom_par_deduccion;
-use models\nom_par_percepcion;
 use stdClass;
 
 
