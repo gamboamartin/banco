@@ -5,7 +5,6 @@ use gamboamartin\banco\controllers\controlador_bn_tipo_banco;
 use gamboamartin\banco\controllers\controlador_bn_tipo_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
-use models\bn_tipo_banco;
 use models\bn_tipo_sucursal;
 use PDO;
 use stdClass;
@@ -18,9 +17,9 @@ class bn_tipo_sucursal_html extends html_controler {
         return $controler->inputs;
     }
 
-    public function genera_inputs_alta(controlador_bn_tipo_sucursal $controler, PDO $link): array|stdClass
+    public function genera_inputs_alta(controlador_bn_tipo_sucursal $controler, array $keys_selects,PDO $link): array|stdClass
     {
-        $inputs = $this->init_alta(link: $link);
+        $inputs = $this->init_alta(keys_selects:$keys_selects, link: $link);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al generar inputs',data:  $inputs);
 
@@ -49,9 +48,9 @@ class bn_tipo_sucursal_html extends html_controler {
         return $inputs_asignados;
     }
 
-    private function init_alta(PDO $link): array|stdClass
+    protected function init_alta(array $keys_selects,PDO $link): array|stdClass
     {
-        $selects = $this->selects_alta(link: $link);
+        $selects = $this->selects_alta(keys_selects:$keys_selects, link: $link);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al generar selects',data:  $selects);
         }
@@ -97,7 +96,7 @@ class bn_tipo_sucursal_html extends html_controler {
         return $inputs;
     }
 
-    private function selects_alta(PDO $link): array|stdClass
+    protected function selects_alta(array $keys_selects, PDO $link): array|stdClass
     {
         $selects = new stdClass();
         return $selects;
@@ -121,7 +120,7 @@ class bn_tipo_sucursal_html extends html_controler {
         return $select;
     }
 
-    private function texts_alta(stdClass $row_upd, bool $value_vacio, stdClass $params = new stdClass()): array|stdClass
+    protected function texts_alta(stdClass $row_upd, bool $value_vacio, stdClass $params = new stdClass()): array|stdClass
     {
         $texts = new stdClass();
         return $texts;
