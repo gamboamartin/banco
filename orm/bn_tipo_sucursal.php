@@ -1,12 +1,12 @@
 <?php
-namespace models;
+namespace gamboamartin\banco\models;
 use base\orm\modelo;
 use PDO;
 
 class bn_tipo_sucursal extends modelo{
 
     public function __construct(PDO $link){
-        $tabla = __CLASS__;
+        $tabla = 'bn_tipo_sucursal';
         $columnas = array($tabla=>false);
         $campos_obligatorios = array();
 
@@ -17,8 +17,10 @@ class bn_tipo_sucursal extends modelo{
         $no_duplicados[] = 'alias';
         $no_duplicados[] = 'codigo_bis';
 
+        $childrens['bn_sucursal'] = "gamboamartin\\banco\\models";
+
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas, no_duplicados: $no_duplicados);
+            columnas: $columnas, no_duplicados: $no_duplicados, childrens: $childrens);
 
         $this->NAMESPACE = __NAMESPACE__;
     }

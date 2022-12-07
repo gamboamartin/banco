@@ -1,12 +1,13 @@
 <?php
-namespace models;
+namespace gamboamartin\banco\models;
 use base\orm\modelo;
+
 use PDO;
 
 class bn_detalle_layout extends modelo{
 
     public function __construct(PDO $link){
-        $tabla = __CLASS__;
+        $tabla = 'bn_detalle_layout';
         $columnas = array($tabla=>false);
         $campos_obligatorios = array();
 

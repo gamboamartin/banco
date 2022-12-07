@@ -1,5 +1,5 @@
 <?php
-namespace models;
+namespace gamboamartin\banco\models;
 use base\orm\modelo;
 use gamboamartin\errores\errores;
 use PDO;
@@ -8,7 +8,7 @@ use stdClass;
 class bn_banco extends modelo{
 
     public function __construct(PDO $link){
-        $tabla = __CLASS__;
+        $tabla = 'bn_banco';
         $columnas = array($tabla=>false,'bn_tipo_banco'=>$tabla);
         $campos_obligatorios = array();
 

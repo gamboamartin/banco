@@ -19,5 +19,16 @@ class base_test{
         return $del;
     }
 
+    public function del_bn_tipo_sucursal(PDO $link): array
+    {
+
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_tipo_sucursal');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
 
 }
