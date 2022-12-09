@@ -13,7 +13,7 @@ use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
-use html\bn_tipo_sucursal_html;
+use html\bn_tipo_cuenta_html;
 use html\cat_sat_moneda_html;
 use html\com_cliente_html;
 use html\com_producto_html;
@@ -33,12 +33,12 @@ use models\nom_percepcion;
 use PDO;
 use stdClass;
 
-class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
+class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
-        $modelo = new bn_tipo_sucursal(link: $link);
-        $html_ = new bn_tipo_sucursal_html(html: $html);
+        $modelo = new bn_tipo_cuenta(link: $link);
+        $html_ = new bn_tipo_cuenta_html(html: $html);
         $obj_link = new links_menu(link: $link, registro_id:$this->registro_id);
         parent::__construct(html:$html_, link: $link,modelo:  $modelo, obj_link: $obj_link, paths_conf: $paths_conf);
 
@@ -53,7 +53,7 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
         }
 
         $keys_selects = array();
-        $inputs = (new bn_tipo_sucursal_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
+        $inputs = (new bn_tipo_cuenta_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
             keys_selects:$keys_selects,link: $this->link);
         if(errores::$error){
             $error = $this->errores->error(mensaje: 'Error al generar inputs',data:  $inputs);
@@ -82,7 +82,7 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
             return $this->errores->error(mensaje: 'Error al generar template',data:  $r_modifica);
         }
 
-        $inputs = (new bn_tipo_sucursal_html(html: $this->html_base))->inputs_bn_tipo_sucursal (
+        $inputs = (new bn_tipo_cuenta_html(html: $this->html_base))->inputs_bn_tipo_sucursal (
             controlador:$this, params: $params);
         if(errores::$error){
             return $this->errores->error(mensaje: 'Error al inicializar inputs',data:  $inputs);

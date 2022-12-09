@@ -12,12 +12,20 @@ class bn_banco extends modelo{
         $columnas = array($tabla=>false,'bn_tipo_banco'=>$tabla);
         $campos_obligatorios = array();
 
+        $no_duplicados = array();
+        $no_duplicados[] = 'codigo';
+        $no_duplicados[] = 'descripcion';
+        $no_duplicados[] = 'descripcion_select';
+        $no_duplicados[] = 'alias';
+        $no_duplicados[] = 'codigo_bis';
+
+        $childrens['bn_sucursal'] = "gamboamartin\\banco\\models";
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas);
+            columnas: $columnas, no_duplicados: $no_duplicados, childrens: $childrens);
         $this->NAMESPACE = __NAMESPACE__;
     }
 
-    public function alta_bd(): array|stdClass
+    /*public function alta_bd(): array|stdClass
     {
         if(!isset($this->registro['codigo_bis'])){
             $this->registro['codigo_bis'] = strtoupper($this->registro['codigo']);
@@ -36,5 +44,5 @@ class bn_banco extends modelo{
             return $this->error->error(mensaje: 'Error al dar de alta configuracion',data: $r_alta_bd);
         }
         return $r_alta_bd;
-    }
+    } */
 }

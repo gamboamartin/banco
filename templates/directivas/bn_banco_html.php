@@ -2,11 +2,9 @@
 namespace html;
 
 use gamboamartin\banco\controllers\controlador_bn_banco;
-use gamboamartin\banco\controllers\controlador_bn_tipo_banco;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
 use models\bn_banco;
-use models\bn_tipo_banco;
 use PDO;
 use stdClass;
 
@@ -15,7 +13,6 @@ class bn_banco_html extends html_controler {
     private function asigna_inputs(controlador_bn_banco $controler, stdClass $inputs): array|stdClass
     {
         $controler->inputs->select = new stdClass();
-        $controler->inputs->select->bn_tipo_banco_id = $inputs->selects->bn_tipo_banco_id;
         return $controler->inputs;
     }
 
@@ -101,28 +98,12 @@ class bn_banco_html extends html_controler {
     protected function selects_alta(array $keys_selects,PDO $link): array|stdClass
     {
         $selects = new stdClass();
-
-        $select = (new bn_tipo_banco_html(html:$this->html_base))->select_bn_tipo_banco_id(
-            cols: 6, con_registros:true, id_selected:-1,link: $link);
-        if(errores::$error){
-            return $this->error->error(mensaje: 'Error al generar select',data:  $select);
-        }
-        $selects->bn_tipo_banco_id = $select;
-
         return $selects;
     }
 
     private function selects_modifica(PDO $link, stdClass $row_upd): array|stdClass
     {
         $selects = new stdClass();
-
-        $select = (new bn_tipo_banco_html(html:$this->html_base))->select_bn_tipo_banco_id(
-            cols: 6, con_registros:true, id_selected:$row_upd->bn_tipo_banco_id,link: $link);
-        if(errores::$error){
-            return $this->error->error(mensaje: 'Error al generar select',data:  $select);
-        }
-        $selects->bn_tipo_banco_id = $select;
-
         return $selects;
     }
 

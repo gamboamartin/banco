@@ -3,10 +3,10 @@ namespace gamboamartin\banco\models;
 use base\orm\modelo;
 use PDO;
 
-class bn_sucursal extends modelo{
+class bn_tipo_cuenta extends modelo{
 
     public function __construct(PDO $link){
-        $tabla = 'bn_sucursal';
+        $tabla = 'bn_tipo_cuenta';
         $columnas = array($tabla=>false);
         $campos_obligatorios = array();
 

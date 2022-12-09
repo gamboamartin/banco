@@ -2,21 +2,22 @@
 namespace html;
 
 use gamboamartin\banco\controllers\controlador_bn_tipo_sucursal;
+use gamboamartin\banco\models\bn_tipo_banco;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
-use models\bn_tipo_sucursal;
+use models\bn_tipo_cuenta;
 use PDO;
 use stdClass;
 
-class bn_tipo_sucursal_html extends html_controler {
+class bn_tipo_cuenta_html extends html_controler {
 
-    private function asigna_inputs(controlador_bn_tipo_sucursal $controler, stdClass $inputs): array|stdClass
+    private function asigna_inputs(controlador_bn_tipo_cuenta $controler, stdClass $inputs): array|stdClass
     {
         $controler->inputs->select = new stdClass();
         return $controler->inputs;
     }
 
-    public function genera_inputs_alta(controlador_bn_tipo_sucursal $controler, array $keys_selects,PDO $link): array|stdClass
+    public function genera_inputs_alta(controlador_bn_tipo_cuenta $controler, array $keys_selects,PDO $link): array|stdClass
     {
         $inputs = $this->init_alta(keys_selects:$keys_selects, link: $link);
         if(errores::$error){
@@ -31,7 +32,7 @@ class bn_tipo_sucursal_html extends html_controler {
         return $inputs_asignados;
     }
 
-    private function genera_inputs_modifica(controlador_bn_tipo_sucursal $controler,PDO $link,
+    private function genera_inputs_modifica(controlador_bn_tipo_cuenta $controler,PDO $link,
                                             stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->init_modifica(link: $link, row_upd: $controler->row_upd, params: $params);
@@ -84,7 +85,7 @@ class bn_tipo_sucursal_html extends html_controler {
         return $alta_inputs;
     }
 
-    public function inputs_bn_tipo_sucursal(controlador_bn_tipo_sucursal $controlador,
+    public function inputs_bn_tipo_banco(controlador_bn_tipo_cuenta $controlador,
                                        stdClass $params = new stdClass()): array|stdClass
     {
         $inputs = $this->genera_inputs_modifica(controler: $controlador,
@@ -107,9 +108,9 @@ class bn_tipo_sucursal_html extends html_controler {
         return $selects;
     }
 
-    public function select_bn_tipo_sucursal_id(int $cols, bool $con_registros, int $id_selected, PDO $link): array|string
+    public function select_bn_tipo_cuenta_id(int $cols, bool $con_registros, int $id_selected, PDO $link): array|string
     {
-        $modelo = new bn_tipo_sucursal(link: $link);
+        $modelo = new bn_tipo_cuenta(link: $link);
 
         $select = $this->select_catalogo(cols:$cols,con_registros:$con_registros,id_selected:$id_selected,
             modelo: $modelo,label: 'Tipo sucursal',required: true);

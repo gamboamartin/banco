@@ -9,15 +9,31 @@
 namespace gamboamartin\banco\controllers;
 
 use gamboamartin\errores\errores;
+use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
 use html\bn_banco_html;
-use models\bn_banco;
+use html\cat_sat_moneda_html;
+use html\com_cliente_html;
+use html\com_producto_html;
+use html\com_sucursal_html;
+use html\em_empleado_html;
+use html\nom_par_deduccion_html;
+use html\nom_par_percepcion_html;
+use html\nom_percepcion_html;
+use models\bn_tipo_banco;
+use models\com_cliente;
+use models\com_producto;
+use models\com_sucursal;
+use models\em_empleado;
+use models\nom_par_deduccion;
+use models\nom_par_percepcion;
+use models\nom_percepcion;
 use PDO;
 use stdClass;
 
-class controlador_bn_banco extends system {
+class controlador_bn_banco extends _ctl_parent_sin_codigo {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){

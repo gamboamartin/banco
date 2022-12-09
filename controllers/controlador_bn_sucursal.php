@@ -9,13 +9,12 @@
 namespace gamboamartin\banco\controllers;
 
 use gamboamartin\errores\errores;
+use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
-use html\bn_banco_html;
 use html\bn_sucursal_html;
 use html\bn_tipo_banco_html;
-use html\cat_sat_moneda_html;
 use html\com_cliente_html;
 use html\com_producto_html;
 use html\com_sucursal_html;
@@ -23,8 +22,6 @@ use html\em_empleado_html;
 use html\nom_par_deduccion_html;
 use html\nom_par_percepcion_html;
 use html\nom_percepcion_html;
-use models\bn_banco;
-use models\bn_sucursal;
 use models\bn_tipo_banco;
 use models\com_cliente;
 use models\com_producto;
@@ -36,7 +33,7 @@ use models\nom_percepcion;
 use PDO;
 use stdClass;
 
-class controlador_bn_sucursal extends system {
+class controlador_bn_sucursal extends _ctl_parent_sin_codigo {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
@@ -56,18 +53,8 @@ class controlador_bn_sucursal extends system {
         }
 
         $keys_selects = array();
-
-        $keys_selects['bn_banco'] = new stdClass();
-        $keys_selects['bn_banco']->label = 'Banco';
-        $keys_selects['bn_banco']->cols = 6;
-
-        $keys_selects['bn_tipo_sucursal'] = new stdClass();
-        $keys_selects['bn_tipo_sucursal']->label = 'Tipo Sucursal';
-        $keys_selects['bn_banco']->cols = 6;
-
-
         $inputs = (new bn_sucursal_html(html: $this->html_base))->genera_inputs_alta(controler: $this,
-            keys_selects: $keys_selects, link: $this->link);
+            keys_selects:$keys_selects,link: $this->link);
         if(errores::$error){
             $error = $this->errores->error(mensaje: 'Error al generar inputs',data:  $inputs);
             print_r($error);
