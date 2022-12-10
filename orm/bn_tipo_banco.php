@@ -1,27 +1,23 @@
 <?php
 namespace gamboamartin\banco\models;
-use base\orm\modelo;
+use base\orm\_modelo_parent;
 use PDO;
 
-class bn_tipo_banco extends modelo{
+class bn_tipo_banco extends _modelo_parent{
 
     public function __construct(PDO $link){
         $tabla = 'bn_tipo_banco';
         $columnas = array($tabla=>false);
-        $campos_obligatorios = array();
+        $campos_obligatorios[] = 'descripcion';
+        $campos_obligatorios[] = 'descripcion_select';
 
-        $no_duplicados = array();
-        $no_duplicados[] = 'codigo';
-        $no_duplicados[] = 'descripcion';
-        $no_duplicados[] = 'descripcion_select';
-        $no_duplicados[] = 'alias';
-        $no_duplicados[] = 'codigo_bis';
-
-        $childrens['bn_sucursal'] = "gamboamartin\\banco\\models";
+        $tipo_campos['codigos'] = 'cod_1_letras_mayusc';
 
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas, no_duplicados: $no_duplicados, childrens: $childrens);
+            columnas: $columnas, tipo_campos: $tipo_campos);
 
         $this->NAMESPACE = __NAMESPACE__;
     }
+
+
 }
