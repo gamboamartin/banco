@@ -4,9 +4,7 @@
 <?php echo $controlador->inputs->codigo; ?>
 <?php echo $controlador->inputs->descripcion; ?>
 
-<?php include (new views())->ruta_templates.'botons/submit/alta_bd_otro.php';?>
-
-
+<?php include (new views())->ruta_templates.'botons/submit/modifica_bd.php';?>
 
 <div class="cold-row-12">
     <?php foreach ($controlador->buttons as $button){ ?>
