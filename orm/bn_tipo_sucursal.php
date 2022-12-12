@@ -15,8 +15,8 @@ class bn_tipo_sucursal extends _modelo_parent {
 
         $no_duplicados = array('codigo','descripcion');
 
-        parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas, tipo_campos: $tipo_campos, no_duplicados: $no_duplicados);
+        parent::__construct(link: $link, tabla: $tabla, campos_obligatorios: $campos_obligatorios,
+            columnas: $columnas, no_duplicados: $no_duplicados, tipo_campos: $tipo_campos);
 
         $this->NAMESPACE = __NAMESPACE__;
     }
