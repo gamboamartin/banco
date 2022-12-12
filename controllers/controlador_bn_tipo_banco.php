@@ -9,31 +9,18 @@
 namespace gamboamartin\banco\controllers;
 
 use gamboamartin\banco\models\bn_tipo_banco;
-use gamboamartin\cat_sat\controllers\_base;
 use gamboamartin\errores\errores;
+use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
-use gamboamartin\system\system;
+
 use gamboamartin\template\html;
 use html\bn_tipo_banco_html;
-use html\cat_sat_moneda_html;
-use html\com_cliente_html;
-use html\com_producto_html;
-use html\com_sucursal_html;
-use html\em_empleado_html;
-use html\nom_par_deduccion_html;
-use html\nom_par_percepcion_html;
-use html\nom_percepcion_html;
-use models\com_cliente;
-use models\com_producto;
-use models\com_sucursal;
-use models\em_empleado;
-use models\nom_par_deduccion;
-use models\nom_par_percepcion;
-use models\nom_percepcion;
+
+
 use PDO;
 use stdClass;
 
-class controlador_bn_tipo_banco extends _base {
+class controlador_bn_tipo_banco extends _ctl_parent_sin_codigo {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
@@ -59,6 +46,23 @@ class controlador_bn_tipo_banco extends _base {
 
         $this->titulo_lista = 'Tipo Banco';
 
+    }
+
+    protected function key_selects_txt(array $keys_selects): array
+    {
+        $keys_selects = (new \base\controller\init())->key_select_txt(
+            cols: 6,key: 'codigo', keys_selects:$keys_selects, place_holder: 'Cod');
+        if(errores::$error){
+            return $this->errores->error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects);
+        }
+
+        $keys_selects = (new \base\controller\init())->key_select_txt(
+            cols: 6,key: 'descripcion', keys_selects:$keys_selects, place_holder: 'Tipo Banco');
+        if(errores::$error){
+            return $this->errores->error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects);
+        }
+
+        return $keys_selects;
     }
 
 
