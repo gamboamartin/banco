@@ -7,11 +7,13 @@ class bn_banco extends _modelo_parent {
 
     public function __construct(PDO $link){
         $tabla = 'bn_banco';
-        $columnas = array($tabla=>false);
+        $columnas = array($tabla=>false,'bn_tipo_banco'=>$tabla);
         $campos_obligatorios[] = 'descripcion';
         $campos_obligatorios[] = 'descripcion_select';
 
         $tipo_campos['codigos'] = 'cod_1_letras_mayusc';
+
+
 
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
             columnas: $columnas, tipo_campos: $tipo_campos);
