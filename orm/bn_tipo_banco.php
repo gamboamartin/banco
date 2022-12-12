@@ -13,8 +13,11 @@ class bn_tipo_banco extends _modelo_parent{
 
         $tipo_campos['codigos'] = 'cod_1_letras_mayusc';
 
-        parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas, tipo_campos: $tipo_campos);
+        $columnas_extra['bn_tipo_banco_n_bancos'] = /** @lang sql */
+            "(SELECT COUNT(*) FROM bn_banco WHERE bn_banco.bn_tipo_banco_id = bn_tipo_banco.id)";
+
+        parent::__construct(link: $link, tabla: $tabla, campos_obligatorios: $campos_obligatorios,
+            columnas: $columnas, columnas_extra: $columnas_extra, tipo_campos: $tipo_campos);
 
         $this->NAMESPACE = __NAMESPACE__;
     }
