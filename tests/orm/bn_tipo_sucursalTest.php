@@ -65,13 +65,14 @@ class bn_tipo_sucursalTest extends test {
         $registro['alias'] = 'd';
         $registro['codigo_bis'] = 'd';
         $resultado = $modelo->alta_registro($registro);
+
         $this->assertIsArray($resultado);
         $this->assertTrue(errores::$error);
         $this->assertEquals('Error al dar de alta registro', $resultado['mensaje_limpio']);
-        $this->assertEquals('Error al validar alta', $resultado['data']['mensaje_limpio']);
-        $this->assertEquals('Error al verificar duplicado', $resultado['data']['data']['mensaje_limpio']);
+        $this->assertEquals('Error al insertar', $resultado['data']['mensaje_limpio']);
+        $this->assertEquals('Error al validar alta', $resultado['data']['data']['mensaje_limpio']);
         $this->assertEquals('Error al verificar duplicado', $resultado['data']['data']['data']['mensaje_limpio']);
-        $this->assertEquals('Error ya existe un registro con el campo codigo', $resultado['data']['data']['data']['data']['mensaje_limpio']);
+        $this->assertEquals('Error al verificar duplicado', $resultado['data']['data']['data']['data']['mensaje_limpio']);
         errores::$error = false;
     }
 
