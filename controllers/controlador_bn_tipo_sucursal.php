@@ -47,6 +47,12 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
 
     }
 
+    /**
+     * Ajusta los parametros de los inputs para upd y alta
+     * @param array $keys_selects Parametros precargados
+     * @return array
+     * @version 0.31.5
+     */
     protected function key_selects_txt(array $keys_selects): array
     {
         $keys_selects = (new \base\controller\init())->key_select_txt(
