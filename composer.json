@@ -54,7 +54,7 @@
         "gamboa.martin/template_1": "^1.0.0",
         "gamboa.martin/system": "^1.0.0",
         "gamboa.martin/js_base": "dev-master",
-        "gamboa.martin/services": "dev-main",
+        "gamboa.martin/services": "^1.0.0",
         "gamboa.martin/cat_sat": "^2.0.0",
         "gamboa.martin/direccion_postal": "^3.0.0",
         "gamboa.martin/documento": "dev-master",
