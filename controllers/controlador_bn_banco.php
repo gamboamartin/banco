@@ -68,6 +68,7 @@ class controlador_bn_banco extends _ctl_base {
         $keys_selects['descripcion']->cols = 12;
 
 
+
         $inputs = $this->inputs(keys_selects: $keys_selects);
         if(errores::$error){
             return $this->retorno_error(
