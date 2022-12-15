@@ -7,7 +7,7 @@ class bn_sucursal extends _modelo_parent {
 
     public function __construct(PDO $link){
         $tabla = 'bn_sucursal';
-        $columnas = array($tabla=>false);
+        $columnas = array($tabla=>false,'bn_banco'=>$tabla,'bn_tipo_sucursal'=>$tabla,'bn_tipo_banco'=>'bn_banco');
         $campos_obligatorios[] = 'descripcion';
         $campos_obligatorios[] = 'descripcion_select';
 

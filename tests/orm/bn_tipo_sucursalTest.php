@@ -49,6 +49,7 @@ class bn_tipo_sucursalTest extends test {
         $registro['codigo_bis'] = 'a';
         $resultado = $modelo->alta_registro($registro);
 
+
         $this->assertIsObject($resultado);
         $this->assertNotTrue(errores::$error);
 
@@ -65,6 +66,7 @@ class bn_tipo_sucursalTest extends test {
         $registro['alias'] = 'd';
         $registro['codigo_bis'] = 'd';
         $resultado = $modelo->alta_registro($registro);
+
 
         $this->assertIsArray($resultado);
         $this->assertTrue(errores::$error);

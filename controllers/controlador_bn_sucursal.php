@@ -58,8 +58,14 @@ class controlador_bn_sucursal extends _ctl_base {
                 mensaje: 'Error al inicializar alta',data:  $r_alta, header: $header,ws:  $ws);
         }
 
-        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_tipo_sucursal_id',
+        $keys_selects = $this->key_select(cols:6, con_registros: true,filtro:  array(), key: 'bn_tipo_sucursal_id',
             keys_selects: array(), id_selected: -1, label: 'Tipo Sucursal');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
+        $keys_selects = $this->key_select(cols:6, con_registros: true,filtro:  array(), key: 'bn_banco_id',
+            keys_selects: $keys_selects, id_selected: -1, label: 'Banco');
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
         }
@@ -88,6 +94,7 @@ class controlador_bn_sucursal extends _ctl_base {
 
         $init_data = array();
         $init_data['bn_tipo_sucursal'] = "gamboamartin\\banco";
+        $init_data['bn_banco'] = "gamboamartin\\banco";
         $campos_view = $this->campos_view_base(init_data: $init_data,keys:  $keys);
 
         if(errores::$error){
@@ -125,7 +132,7 @@ class controlador_bn_sucursal extends _ctl_base {
             return $this->errores->error(mensaje: 'Error al maquetar key_selects', data: $keys_selects);
         }
 
-        $keys_selects = (new \base\controller\init())->key_select_txt(cols: 6,key: 'descripcion', keys_selects:$keys_selects, place_holder: 'Banco');
+        $keys_selects = (new \base\controller\init())->key_select_txt(cols: 6,key: 'descripcion', keys_selects:$keys_selects, place_holder: 'Sucursal');
         if(errores::$error){
             return $this->errores->error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects);
         }
@@ -144,14 +151,21 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
 
-        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_tipo_sucursal_id',
+
+        $keys_selects = $this->key_select(cols:6, con_registros: true,filtro:  array(), key: 'bn_tipo_sucursal_id',
             keys_selects: array(), id_selected: $this->registro['bn_tipo_sucursal_id'], label: 'Tipo Sucursal');
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
         }
 
+        $keys_selects = $this->key_select(cols:6, con_registros: true,filtro:  array(), key: 'bn_banco_id',
+            keys_selects: $keys_selects, id_selected: $this->registro['bn_banco_id'], label: 'Banco');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
         $keys_selects['descripcion'] = new stdClass();
-        $keys_selects['descripcion']->cols = 6;
+        $keys_selects['descripcion']->cols = 12;
 
         $keys_selects['codigo'] = new stdClass();
         $keys_selects['codigo']->disabled = true;
