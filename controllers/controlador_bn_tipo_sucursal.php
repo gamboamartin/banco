@@ -13,6 +13,7 @@ use gamboamartin\errores\errores;
 use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
 use gamboamartin\template\html;
+use html\bn_banco_html;
 use html\bn_sucursal_html;
 use html\bn_tipo_sucursal_html;
 
@@ -58,19 +59,14 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
 
     }
 
-    /**
-     * Ajusta los parametros de los inputs para upd y alta
-     * @param array $keys_selects Parametros precargados
-     * @return array
-     * @version 0.31.5
-     */
+
     public function sucursales(bool $header = true, bool $ws = false): array|string
     {
 
 
         $data_view = new stdClass();
-        $data_view->names = array('Id','Cod','Sucursal');
-        $data_view->keys_data = array('bn_sucursal_id', 'bn_sucursal_codigo','bn_sucursal_descripcion');
+        $data_view->names = array('Id','Cod','Sucursal','Banco');
+        $data_view->keys_data = array('bn_sucursal_id', 'bn_sucursal_codigo','bn_sucursal_descripcion','bn_banco_descripcion');
         $data_view->key_actions = 'acciones';
         $data_view->namespace_model = 'gamboamartin\\banco\\models';
         $data_view->name_model_children = 'bn_sucursal';
@@ -91,11 +87,19 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_sucursal_id = (new bn_tipo_sucursal_html(html: $this->html_base))->select_bn_tipo_sucursal_id(
-            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_sucursal_id,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_sucursal_id,link:  $this->link, disabled: true);
 
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener select_adm_menu_id',data:  $select_bn_tipo_sucursal_id);
+        }
+
+        $select_bn_banco_id = (new bn_banco_html(html: $this->html_base))->select_bn_banco_id(
+            cols:12,con_registros: true,id_selected:  -1,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_bn_banco_id',data:  $select_bn_banco_id);
         }
 
         $bn_sucursal_codigo = (new bn_sucursal_html(html: $this->html_base))->input_codigo(
@@ -106,7 +110,7 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
         }
 
         $bn_sucursal_descripcion = (new bn_sucursal_html(html: $this->html_base))->input_descripcion(
-            cols:6,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Sucursal');
+            cols:12,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Sucursal');
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener bn_banco_descripcion',data:  $bn_sucursal_descripcion);
@@ -116,6 +120,7 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
         $this->inputs = new stdClass();
         $this->inputs->select = new stdClass();
         $this->inputs->select->bn_tipo_sucursal_id = $select_bn_tipo_sucursal_id;
+        $this->inputs->select->bn_banco_id = $select_bn_banco_id;
         $this->inputs->bn_sucursal_codigo = $bn_sucursal_codigo;
         $this->inputs->bn_sucursal_descripcion = $bn_sucursal_descripcion;
 

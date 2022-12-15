@@ -2,9 +2,9 @@
 namespace html;
 
 use gamboamartin\banco\controllers\controlador_bn_banco;
+use gamboamartin\banco\models\bn_banco;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
-use models\bn_banco;
 use PDO;
 use stdClass;
 
