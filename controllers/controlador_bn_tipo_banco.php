@@ -12,7 +12,6 @@ use gamboamartin\banco\models\bn_tipo_banco;
 use gamboamartin\errores\errores;
 use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
-
 use gamboamartin\template\html;
 use html\bn_banco_html;
 use html\bn_tipo_banco_html;

@@ -13,6 +13,8 @@ class bn_sucursal extends _modelo_parent {
 
         $tipo_campos['codigos'] = 'cod_1_letras_mayusc';
 
+
+
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,
             columnas: $columnas, tipo_campos: $tipo_campos);
 

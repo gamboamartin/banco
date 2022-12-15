@@ -1,7 +1,7 @@
 <?php
 namespace html;
 
-use gamboamartin\banco\controllers\controlador_bn_tipo_sucursal;
+use gamboamartin\banco\controllers\controlador_bn_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\system\html_controler;
 use models\bn_sucursal;
@@ -112,7 +112,7 @@ class bn_sucursal_html extends html_controler {
         $modelo = new bn_sucursal(link: $link);
 
         $select = $this->select_catalogo(cols:$cols,con_registros:$con_registros,id_selected:$id_selected,
-            modelo: $modelo,label: 'Tipo sucursal',required: true);
+            modelo: $modelo,label: 'Sucursal',required: true);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al generar select', data: $select);
         }

@@ -13,10 +13,12 @@ class bn_tipo_sucursal extends _modelo_parent {
 
         $tipo_campos['codigos'] = 'cod_1_letras_mayusc';
 
-        $no_duplicados = array('codigo','descripcion');
+        $columnas_extra['bn_tipo_sucursal_n_sucursales'] = /** @lang sql */
+            "(SELECT COUNT(*) FROM bn_sucursal WHERE bn_sucursal.bn_tipo_sucursal_id = bn_tipo_sucursal.id)";
+
 
         parent::__construct(link: $link, tabla: $tabla, campos_obligatorios: $campos_obligatorios,
-            columnas: $columnas, no_duplicados: $no_duplicados, tipo_campos: $tipo_campos);
+            columnas: $columnas, columnas_extra: $columnas_extra, tipo_campos: $tipo_campos);
 
         $this->NAMESPACE = __NAMESPACE__;
     }
