@@ -12,8 +12,8 @@ use gamboamartin\banco\models\bn_tipo_cuenta;
 use gamboamartin\errores\errores;
 use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
-
 use gamboamartin\template\html;
+use html\bn_banco_html;
 use html\bn_cuenta_html;
 use html\bn_tipo_cuenta_html;
 
@@ -67,7 +67,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
         $data_view->names = array('Id','Cod','Cuenta');
         $data_view->keys_data = array('bn_cuenta_id', 'bn_cuenta_codigo','bn_cuenta_descripcion');
         $data_view->key_actions = 'acciones';
-        $data_view->namespace_model = 'gamboamartin\\cuenta\\models';
+        $data_view->namespace_model = 'gamboamartin\\banco\\models';
         $data_view->name_model_children = 'bn_cuenta';
 
 
@@ -92,6 +92,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
             return $this->errores->error(
                 mensaje: 'Error al obtener select_adm_menu_id',data:  $select_bn_tipo_cuenta_id);
         }
+
 
         $bn_cuenta_codigo = (new bn_cuenta_html(html: $this->html_base))->input_codigo(
             cols:6,row_upd:  new stdClass(),value_vacio:  false);
