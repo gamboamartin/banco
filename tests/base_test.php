@@ -19,8 +19,24 @@ class base_test{
         return $del;
     }
 
+    public function del_bn_cuenta(PDO $link): array
+    {
+
+
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_cuenta');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
     public function del_bn_sucursal(PDO $link): array
     {
+        $del = $this->del_bn_cuenta($link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
 
         $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_sucursal');
         if(errores::$error){

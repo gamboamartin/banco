@@ -7,7 +7,8 @@ class bn_cuenta extends _modelo_parent {
 
     public function __construct(PDO $link){
         $tabla = 'bn_cuenta';
-        $columnas = array($tabla=>false,'bn_tipo_cuenta'=>$tabla);
+        $columnas = array($tabla=>false,'bn_tipo_cuenta'=>$tabla,'org_sucursal'=>$tabla,'bn_sucursal'=>$tabla,
+            'em_empleado'=>$tabla);
         $campos_obligatorios[] = 'descripcion';
         $campos_obligatorios[] = 'descripcion_select';
 

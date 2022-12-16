@@ -58,7 +58,13 @@
         "gamboa.martin/cat_sat": "^3.0.0",
         "gamboa.martin/direccion_postal": "^4.0.0",
         "gamboa.martin/documento": "^1.0.0",
-        "gamboa.martin/proceso": "^1.0.0"
+        "gamboa.martin/proceso": "^1.0.0",
+        "gamboa.martin/organigrama": "^1.0.0",
+        "gamboa.martin/empleado": "dev-main",
+        "gamboa.martin/comercial": "dev-master",
+        "gamboa.martin/facturacion": "dev-main",
+        "gamboa.martin/nomina": "dev-master",
+        "gamboa.martin/im_registro_patronal": "dev-main"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"

@@ -11,14 +11,13 @@
                         <?php include (new views())->ruta_templates."mensajes.php"; ?>
 
                         <?php echo $controlador->inputs->select->bn_tipo_cuenta_id; ?>
-                        <?php echo $controlador->inputs->bn_cuenta_codigo; ?>
                         <?php echo $controlador->inputs->bn_cuenta_descripcion; ?>
 
                         <?php echo $controlador->inputs->hidden_row_id; ?>
                         <?php echo $controlador->inputs->hidden_seccion_retorno; ?>
                         <?php echo $controlador->inputs->hidden_id_retorno; ?>
                         <div class="controls">
-                            <button type="submit" class="btn btn-success" value="sucursales" name="btn_action_next">Alta</button><br>
+                            <button type="submit" class="btn btn-success" value="cuentas" name="btn_action_next">Alta</button><br>
                         </div>
                     </form>
                 </div>

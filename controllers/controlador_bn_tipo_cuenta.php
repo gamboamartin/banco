@@ -86,7 +86,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_cuenta_id = (new bn_tipo_cuenta_html(html: $this->html_base))->select_bn_tipo_cuenta_id(
-            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_cuenta_id,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_cuenta_id,link:  $this->link, disabled: true);
 
         if(errores::$error){
             return $this->errores->error(
@@ -102,7 +102,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
         }
 
         $bn_cuenta_descripcion = (new bn_cuenta_html(html: $this->html_base))->input_descripcion(
-            cols:6,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Cuenta');
+            cols:12,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Cuenta');
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener bn_cuenta_descripcion',data:  $bn_cuenta_descripcion);

@@ -17,7 +17,9 @@ use gamboamartin\template\html;
 use html\bn_cuenta_html;
 
 
+use html\bn_sucursal_html;
 use html\bn_tipo_cuenta_html;
+use html\org_sucursal_html;
 use PDO;
 use stdClass;
 
@@ -25,6 +27,7 @@ class controlador_bn_cuenta extends _ctl_base {
 
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
+
         $modelo = new bn_cuenta(link: $link);
         $html_ = new bn_cuenta_html(html: $html);
         $obj_link = new links_menu(link: $link, registro_id:$this->registro_id);
@@ -58,15 +61,30 @@ class controlador_bn_cuenta extends _ctl_base {
                 mensaje: 'Error al inicializar alta',data:  $r_alta, header: $header,ws:  $ws);
         }
 
+
         $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_tipo_cuenta_id',
             keys_selects: array(), id_selected: -1, label: 'Tipo Cuenta');
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
         }
 
+
+        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'org_sucursal_id',
+            keys_selects: $keys_selects, id_selected: -1, label: 'Empresa');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
+        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_sucursal_id',
+            keys_selects: $keys_selects, id_selected: -1, label: 'Banco');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
+
+
         $keys_selects['descripcion'] = new stdClass();
         $keys_selects['descripcion']->cols = 12;
-
 
 
         $inputs = $this->inputs(keys_selects: $keys_selects);
@@ -88,6 +106,8 @@ class controlador_bn_cuenta extends _ctl_base {
 
         $init_data = array();
         $init_data['bn_tipo_cuenta'] = "gamboamartin\\banco";
+        $init_data['org_sucursal'] = "gamboamartin\\organigrama";
+        $init_data['bn_sucursal'] = "gamboamartin\\banco";
         $campos_view = $this->campos_view_base(init_data: $init_data,keys:  $keys);
 
         if(errores::$error){
@@ -101,17 +121,35 @@ class controlador_bn_cuenta extends _ctl_base {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_cuenta_id = (new bn_tipo_cuenta_html(html: $this->html_base))->select_bn_tipo_cuenta_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_bn_tipo_cuenta_id,link:  $this->link);
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener select_bn_tipo_cuenta_id',data:  $select_bn_tipo_cuenta_id);
         }
 
+        $select_org_sucursal_id = (new org_sucursal_html(html: $this->html_base))->select_org_sucursal_id(
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_org_sucursal_id',data:  $select_org_sucursal_id);
+        }
+
+        $select_bn_sucursal_id = (new bn_sucursal_html(html: $this->html_base))->select_bn_sucursal_id(
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_bn_sucursal_id',data:  $select_bn_sucursal_id);
+        }
+
 
         $this->inputs = new stdClass();
         $this->inputs->select = new stdClass();
         $this->inputs->select->bn_tipo_cuenta_id = $select_bn_tipo_cuenta_id;
+        $this->inputs->select->org_sucursal_id = $select_org_sucursal_id;
+        $this->inputs->select->bn_sucursal_id = $select_bn_sucursal_id;
 
         return $this->inputs;
     }
@@ -146,6 +184,18 @@ class controlador_bn_cuenta extends _ctl_base {
 
         $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_tipo_cuenta_id',
             keys_selects: array(), id_selected: $this->registro['bn_tipo_cuenta_id'], label: 'Tipo Cuenta');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
+        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'org_sucursal_id',
+            keys_selects: $keys_selects, id_selected: $this->registro['org_sucursal_id'], label: 'Sucursal');
+        if(errores::$error){
+            return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
+        }
+
+        $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'bn_sucursal_id',
+            keys_selects: $keys_selects, id_selected: $this->registro['bn_sucursal_id'], label: 'Banco');
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
         }
