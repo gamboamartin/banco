@@ -91,7 +91,7 @@ class controlador_bn_cuenta extends _ctl_base {
 
 
         $keys_selects['descripcion'] = new stdClass();
-        $keys_selects['descripcion']->cols = 12;
+        $keys_selects['descripcion']->cols = 6;
 
 
         $inputs = $this->inputs(keys_selects: $keys_selects);
