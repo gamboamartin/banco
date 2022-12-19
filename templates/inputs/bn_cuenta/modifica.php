@@ -5,6 +5,9 @@
 <?php echo $controlador->inputs->descripcion; ?>
 
 <?php echo $controlador->inputs->bn_tipo_cuenta_id; ?>
+<?php echo $controlador->inputs->em_empleado_id; ?>
+<?php echo $controlador->inputs->org_sucursal_id; ?>
+<?php echo $controlador->inputs->bn_sucursal_id; ?>
 
 <?php include (new views())->ruta_templates.'botons/submit/modifica_bd.php';?>
 
