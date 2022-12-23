@@ -85,7 +85,7 @@ class controlador_bn_tipo_banco extends _ctl_parent_sin_codigo {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_banco_id = (new bn_tipo_banco_html(html: $this->html_base))->select_bn_tipo_banco_id(
-            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_banco_id,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  $registro->bn_tipo_banco_id,link:  $this->link, disabled: true);
 
         if(errores::$error){
             return $this->errores->error(
