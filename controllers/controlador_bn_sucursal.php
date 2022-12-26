@@ -35,11 +35,13 @@ class controlador_bn_sucursal extends _ctl_base {
         $datatables->columns['bn_sucursal_id']['titulo'] = 'Id';
         $datatables->columns['bn_sucursal_codigo']['titulo'] = 'Cod';
         $datatables->columns['bn_sucursal_descripcion']['titulo'] = 'Sucursal';
+        $datatables->columns['bn_banco_descripcion']['titulo'] = 'Banco';
 
         $datatables->filtro = array();
         $datatables->filtro[] = 'bn_sucursal.id';
         $datatables->filtro[] = 'bn_sucursal.codigo';
         $datatables->filtro[] = 'bn_sucursal.descripcion';
+        $datatables->filtro[] = 'bn_sucursal.bn_banco_id';
 
 
         parent::__construct(html:$html_, link: $link,modelo:  $modelo, obj_link: $obj_link,
