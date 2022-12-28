@@ -31,22 +31,7 @@ class base_test{
         return $del;
     }
 
-    public function del_em_cuenta_bancaria(PDO $link): array
-    {
-        $del = $this->del($link, 'gamboamartin\\empleado\\models\\em_cuenta_bancaria');
-        if(errores::$error){
-            return (new errores())->error('Error al eliminar', $del);
-        }
-        return $del;
-    }
-    public function del_nom_conf_empleado(PDO $link): array
-    {
-        $del = $this->del($link, 'gamboamartin\\nomina\\models\\nom_conf_empleado');
-        if(errores::$error){
-            return (new errores())->error('Error al eliminar', $del);
-        }
-        return $del;
-    }
+
 
     public function del_bn_sucursal(PDO $link): array
     {
@@ -65,15 +50,6 @@ class base_test{
     public function del_bn_tipo_sucursal(PDO $link): array
     {
 
-        $del = $this->del_nom_conf_empleado($link);
-        if(errores::$error){
-            return (new errores())->error('Error al eliminar', $del);
-        }
-
-        $del = $this->del_em_cuenta_bancaria($link);
-        if(errores::$error){
-            return (new errores())->error('Error al eliminar', $del);
-        }
 
         $del = $this->del_bn_sucursal($link);
         if(errores::$error){
