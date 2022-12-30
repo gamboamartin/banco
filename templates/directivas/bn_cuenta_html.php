@@ -1,6 +1,5 @@
 <?php
 namespace html;
-
 use gamboamartin\banco\controllers\controlador_bn_cuenta;
 use gamboamartin\banco\models\bn_cuenta;
 use gamboamartin\errores\errores;
