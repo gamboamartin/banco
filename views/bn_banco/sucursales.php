@@ -1,4 +1,4 @@
-<?php /** @var gamboamartin\acl\controllers\controlador_adm_menu $controlador  controlador en ejecucion */ ?>
+<?php /** @var gamboamartin\banco\controllers\controlador_bn_banco $controlador  controlador en ejecucion */ ?>
 <?php use config\views; ?>
 <main class="main section-color-primary">
     <div class="container">
