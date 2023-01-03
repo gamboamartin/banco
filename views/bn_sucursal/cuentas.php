@@ -10,10 +10,10 @@
                         <?php include (new views())->ruta_templates."head/subtitulo.php"; ?>
                         <?php include (new views())->ruta_templates."mensajes.php"; ?>
 
-                        <?php echo $controlador->inputs->bn_tipo_cuenta_id; ?>
-                        <?php echo $controlador->inputs->org_sucursal_id; ?>
-                        <?php echo $controlador->inputs->bn_empleado_id; ?>
-                        <?php echo $controlador->inputs->bn_sucursal_id; ?>
+                        <?php echo $controlador->inputs->select->bn_tipo_cuenta_id; ?>
+                        <?php echo $controlador->inputs->select->org_sucursal_id; ?>
+                        <?php echo $controlador->inputs->select->bn_empleado_id; ?>
+                        <?php echo $controlador->inputs->select->bn_sucursal_id; ?>
 
                         <?php echo $controlador->inputs->hidden_row_id; ?>
                         <?php echo $controlador->inputs->hidden_seccion_retorno; ?>

@@ -41,6 +41,8 @@ class controlador_bn_sucursal extends _ctl_base {
         $datatables->columns['bn_sucursal_codigo']['titulo'] = 'Cod';
         $datatables->columns['bn_sucursal_descripcion']['titulo'] = 'Sucursal';
         $datatables->columns['bn_banco_descripcion']['titulo'] = 'Banco';
+        $datatables->columns['bn_cuenta_n_cuentas']['titulo'] = 'N Cuentas';
+
 
         $datatables->filtro = array();
         $datatables->filtro[] = 'bn_sucursal.id';
@@ -123,7 +125,7 @@ class controlador_bn_sucursal extends _ctl_base {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_cuenta_id = (new bn_tipo_cuenta_html(html: $this->html_base))->select_bn_tipo_cuenta_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_bn_tipo_cuenta_id,link:  $this->link);
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -131,7 +133,7 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_org_sucursal_id = (new org_sucursal_html(html: $this->html_base))->select_org_sucursal_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_org_sucursal_id,link:  $this->link);
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -139,7 +141,7 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_bn_empleado_id = (new bn_empleado_html(html: $this->html_base))->select_bn_empleado_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_bn_empleado_id,link:  $this->link);
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -147,7 +149,7 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_bn_sucursal_id = (new bn_sucursal_html(html: $this->html_base))->select_bn_sucursal_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_bn_sucursal_id,link:  $this->link);
+            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
