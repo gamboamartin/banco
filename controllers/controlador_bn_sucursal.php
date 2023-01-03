@@ -8,21 +8,26 @@
  */
 namespace gamboamartin\banco\controllers;
 
+use gamboamartin\banco\models\bn_empleado;
 use gamboamartin\banco\models\bn_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\system\_ctl_base;
 use gamboamartin\system\links_menu;
 
 use gamboamartin\template\html;
+use html\bn_empleado_html;
 use html\bn_sucursal_html;
 
 
+use html\bn_tipo_cuenta_html;
 use html\bn_tipo_sucursal_html;
+use html\org_sucursal_html;
 use PDO;
 use stdClass;
 
 class controlador_bn_sucursal extends _ctl_base {
 
+    public string $link_bn_cuenta_alta_bd = '';
     public function __construct(PDO $link, html $html = new \gamboamartin\template_1\html(),
                                 stdClass $paths_conf = new stdClass()){
         $modelo = new bn_sucursal(link: $link);
@@ -48,6 +53,14 @@ class controlador_bn_sucursal extends _ctl_base {
             datatables: $datatables, paths_conf: $paths_conf);
 
         $this->titulo_lista = 'Sucursal';
+
+        $link_bn_cuenta_alta_bd = $this->obj_link->link_alta_bd(link: $link, seccion: 'bn_cuenta');
+        if(errores::$error){
+            $error = $this->errores->error(mensaje: 'Error al obtener link',data:  $link_bn_cuenta_alta_bd);
+            print_r($error);
+            exit;
+        }
+        $this->link_bn_cuenta_alta_bd = $link_bn_cuenta_alta_bd;
 
     }
 
@@ -109,18 +122,45 @@ class controlador_bn_sucursal extends _ctl_base {
 
     protected function inputs_children(stdClass $registro): stdClass|array
     {
-        $select_bn_tipo_sucursal_id = (new bn_tipo_sucursal_html(html: $this->html_base))->select_bn_tipo_sucursal_id(
-            cols:6,con_registros: true,id_selected:  $registro->select_bn_tipo_sucursal_id,link:  $this->link);
+        $select_bn_tipo_cuenta_id = (new bn_tipo_cuenta_html(html: $this->html_base))->select_bn_tipo_cuenta_id(
+            cols:6,con_registros: true,id_selected:  $registro->select_bn_tipo_cuenta_id,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
-                mensaje: 'Error al obtener select_bn_tipo_sucursal_id',data:  $select_bn_tipo_sucursal_id);
+                mensaje: 'Error al obtener select_bn_tipo_cuenta_id',data:  $select_bn_tipo_cuenta_id);
+        }
+
+        $select_org_sucursal_id = (new org_sucursal_html(html: $this->html_base))->select_org_sucursal_id(
+            cols:6,con_registros: true,id_selected:  $registro->select_org_sucursal_id,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_org_sucursal_id',data:  $select_org_sucursal_id);
+        }
+
+        $select_bn_empleado_id = (new bn_empleado_html(html: $this->html_base))->select_bn_empleado_id(
+            cols:6,con_registros: true,id_selected:  $registro->select_bn_empleado_id,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_bn_empleado_id',data:  $select_bn_empleado_id);
+        }
+
+        $select_bn_sucursal_id = (new bn_sucursal_html(html: $this->html_base))->select_bn_sucursal_id(
+            cols:6,con_registros: true,id_selected:  $registro->select_bn_sucursal_id,link:  $this->link);
+
+        if(errores::$error){
+            return $this->errores->error(
+                mensaje: 'Error al obtener select_bn_sucursal_id',data:  $select_bn_sucursal_id);
         }
 
 
         $this->inputs = new stdClass();
         $this->inputs->select = new stdClass();
-        $this->inputs->select->bn_tipo_sucursal_id = $select_bn_tipo_sucursal_id;
+        $this->inputs->select->bn_tipo_cuenta_id = $select_bn_tipo_cuenta_id;
+        $this->inputs->select->org_sucursal_id = $select_org_sucursal_id;
+        $this->inputs->select->bn_empleado_id = $select_bn_empleado_id;
+        $this->inputs->select->bn_sucursal_id = $select_bn_sucursal_id;
 
         return $this->inputs;
     }
@@ -181,6 +221,31 @@ class controlador_bn_sucursal extends _ctl_base {
 
 
         return $r_modifica;
+    }
+
+    public function cuentas(bool $header = true, bool $ws = false): array|string
+    {
+
+
+        $data_view = new stdClass();
+        $data_view->names = array('Id','Cod','Cuenta','Banco','Nombre Em','Ap Em','AM Em');
+        $data_view->keys_data = array('bn_cuenta_id', 'bn_cuenta_codigo','bn_sucursal_descripcion','bn_banco.descripcion','bn_empleado.nombre',
+            'bn_empleado.ap','bn_empleado.am');
+        $data_view->key_actions = 'acciones';
+        $data_view->namespace_model = 'gamboamartin\\banco\\models';
+        $data_view->name_model_children = 'bn_cuenta';
+
+
+        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__);
+        if(errores::$error){
+            return $this->retorno_error(
+                mensaje: 'Error al obtener tbody',data:  $contenido_table, header: $header,ws:  $ws);
+        }
+
+
+        return $contenido_table;
+
+
     }
 
 
