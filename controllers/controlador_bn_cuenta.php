@@ -74,7 +74,7 @@ class controlador_bn_cuenta extends _ctl_base {
         }
 
         $keys_selects = $this->key_select(cols:12, con_registros: true,filtro:  array(), key: 'org_sucursal_id',
-            keys_selects: $keys_selects, id_selected: -1, label: 'Empresa');
+            keys_selects: $keys_selects, id_selected: -1, label: 'Sucursal');
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects, header: $header,ws:  $ws);
         }
@@ -97,7 +97,7 @@ class controlador_bn_cuenta extends _ctl_base {
 
 
         $keys_selects['descripcion'] = new stdClass();
-        $keys_selects['descripcion']->cols = 6;
+        $keys_selects['descripcion']->cols = 12;
 
 
         $inputs = $this->inputs(keys_selects: $keys_selects);
@@ -143,7 +143,7 @@ class controlador_bn_cuenta extends _ctl_base {
             return $this->errores->error(mensaje: 'Error al maquetar key_selects', data: $keys_selects);
         }
 
-        $keys_selects = (new \base\controller\init())->key_select_txt(cols: 6,key: 'descripcion', keys_selects:$keys_selects, place_holder: 'Cuenta');
+        $keys_selects = (new \base\controller\init())->key_select_txt(cols: 12,key: 'descripcion', keys_selects:$keys_selects, place_holder: 'Cuenta');
         if(errores::$error){
             return $this->errores->error(mensaje: 'Error al maquetar key_selects',data:  $keys_selects);
         }
@@ -187,7 +187,7 @@ class controlador_bn_cuenta extends _ctl_base {
         }
 
         $keys_selects['descripcion'] = new stdClass();
-        $keys_selects['descripcion']->cols = 6;
+        $keys_selects['descripcion']->cols = 12;
 
         $keys_selects['codigo'] = new stdClass();
         $keys_selects['codigo']->disabled = true;
