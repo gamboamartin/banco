@@ -12,7 +12,6 @@
 
                         <?php echo $controlador->inputs->select->bn_tipo_banco_id; ?>
 
-                        <?php echo $controlador->inputs->bn_banco_codigo; ?>
                         <?php echo $controlador->inputs->bn_banco_descripcion; ?>
 
                         <?php echo $controlador->inputs->hidden_row_id; ?>

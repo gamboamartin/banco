@@ -100,7 +100,7 @@ class controlador_bn_tipo_banco extends _ctl_parent_sin_codigo {
         }
 
         $bn_banco_descripcion = (new bn_banco_html(html: $this->html_base))->input_descripcion(
-            cols:6,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Banco');
+            cols:12,row_upd:  new stdClass(),value_vacio:  false,place_holder: 'Banco');
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener bn_banco_descripcion',data:  $bn_banco_descripcion);
