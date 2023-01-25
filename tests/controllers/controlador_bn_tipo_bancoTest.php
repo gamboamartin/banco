@@ -1,10 +1,9 @@
 <?php
 namespace tests\controllers;
 
-use gamboamartin\banco\controllers\controlador_adm_session;
+use gamboamartin\administrador\models\adm_namespace;
+use gamboamartin\administrador\models\adm_seccion;
 use gamboamartin\banco\controllers\controlador_bn_tipo_banco;
-use gamboamartin\banco\controllers\controlador_bn_tipo_cuenta;
-use gamboamartin\banco\controllers\controlador_bn_tipo_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\test\liberator;
 use gamboamartin\test\test;
@@ -29,11 +28,38 @@ class controlador_bn_tipo_bancoTest extends test {
     {
         errores::$error = false;
 
-        $_GET['seccion'] = 'cat_sat_tipo_persona';
+        $_GET['seccion'] = 'bn_tipo_banco';
         $_GET['accion'] = 'lista';
         $_SESSION['grupo_id'] = 1;
         $_SESSION['usuario_id'] = 2;
         $_GET['session_id'] = '1';
+
+        $del = (new adm_namespace(link: $this->link))->elimina_todo();
+        if(errores::$error){
+            $error = (new errores())->error('Error al eliminar', $del);
+            print_r($error);
+            exit;
+        }
+
+        $adm_namespace['id'] = '1';
+        $adm_namespace['descripcion'] = 'gamboa.martin/acl';
+        $alta = (new adm_namespace(link: $this->link))->alta_registro(registro: $adm_namespace);
+        if(errores::$error){
+            $error = (new errores())->error('Error al insertar', $alta);
+            print_r($error);
+            exit;
+        }
+
+        $adm_seccion['id'] = '1';
+        $adm_seccion['descripcion'] = 'bn_tipo_banco';
+        $adm_seccion['adm_menu_id'] = '1';
+        $alta = (new adm_seccion(link: $this->link))->alta_registro(registro: $adm_seccion);
+        if(errores::$error){
+            $error = (new errores())->error('Error al insertar', $alta);
+            print_r($error);
+            exit;
+        }
+
 
         $controler = new controlador_bn_tipo_banco(link: $this->link,paths_conf: $this->paths_conf);
         $controler = new liberator($controler);

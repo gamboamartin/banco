@@ -1,6 +1,7 @@
 <?php
 namespace tests\controllers;
 
+use gamboamartin\administrador\models\adm_seccion;
 use gamboamartin\banco\controllers\controlador_adm_session;
 use gamboamartin\banco\controllers\controlador_bn_tipo_cuenta;
 use gamboamartin\errores\errores;
@@ -27,11 +28,29 @@ class controlador_bn_tipo_cuentaTest extends test {
     {
         errores::$error = false;
 
-        $_GET['seccion'] = 'cat_sat_tipo_persona';
+        $_GET['seccion'] = 'bn_tipo_cuenta';
         $_GET['accion'] = 'lista';
         $_SESSION['grupo_id'] = 1;
         $_SESSION['usuario_id'] = 2;
         $_GET['session_id'] = '1';
+
+        $del = (new adm_seccion(link: $this->link))->elimina_todo();
+        if(errores::$error){
+            $error = (new errores())->error('Error al eliminar', $del);
+            print_r($error);
+            exit;
+        }
+
+        $adm_seccion['id'] = '2';
+        $adm_seccion['descripcion'] = 'bn_tipo_cuenta';
+        $adm_seccion['adm_menu_id'] = '1';
+        $alta = (new adm_seccion(link: $this->link))->alta_registro(registro: $adm_seccion);
+        if(errores::$error){
+            $error = (new errores())->error('Error al insertar', $alta);
+            print_r($error);
+            exit;
+        }
+
 
         $controler = new controlador_bn_tipo_cuenta(link: $this->link,paths_conf: $this->paths_conf);
         $controler = new liberator($controler);
