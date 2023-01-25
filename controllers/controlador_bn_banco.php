@@ -18,7 +18,6 @@ use html\bn_banco_html;
 
 
 use html\bn_sucursal_html;
-use html\bn_tipo_banco_html;
 use html\bn_tipo_sucursal_html;
 use PDO;
 use stdClass;
@@ -185,7 +184,7 @@ class controlador_bn_banco extends _ctl_base {
         $keys_selects['codigo'] = new stdClass();
         $keys_selects['codigo']->disabled = true;
 
-        $base = $this->base_upd(keys_selects: $keys_selects, not_actions: array(__FUNCTION__), params: array(),params_ajustados: array());
+        $base = $this->base_upd(keys_selects: $keys_selects, params: array(),params_ajustados: array());
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al integrar base',data:  $base, header: $header,ws:  $ws);
         }
@@ -208,7 +207,7 @@ class controlador_bn_banco extends _ctl_base {
         $data_view->name_model_children = 'bn_sucursal';
 
 
-        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__);
+        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__, not_actions: $this->not_actions);
         if(errores::$error){
             return $this->retorno_error(
                 mensaje: 'Error al obtener tbody',data:  $contenido_table, header: $header,ws:  $ws);
