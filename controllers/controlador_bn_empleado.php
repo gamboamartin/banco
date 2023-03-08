@@ -173,7 +173,7 @@ class controlador_bn_empleado extends _ctl_parent_sin_codigo {
         $keys_selects['am'] = new stdClass();
         $keys_selects['am']->cols = 12;
 
-        $base = $this->base_upd(keys_selects: $keys_selects, not_actions: array(__FUNCTION__), params: array(),params_ajustados: array());
+        $base = $this->base_upd(keys_selects: $keys_selects, params: array(),params_ajustados: array());
         if(errores::$error){
             return $this->retorno_error(mensaje: 'Error al integrar base',data:  $base, header: $header,ws:  $ws);
         }

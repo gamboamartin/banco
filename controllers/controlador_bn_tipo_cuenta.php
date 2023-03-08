@@ -10,17 +10,16 @@ namespace gamboamartin\banco\controllers;
 
 use gamboamartin\banco\models\bn_tipo_cuenta;
 use gamboamartin\errores\errores;
+use gamboamartin\organigrama\html\org_sucursal_html;
 use gamboamartin\system\_ctl_parent_sin_codigo;
 use gamboamartin\system\links_menu;
 use gamboamartin\template\html;
-use html\bn_banco_html;
 use html\bn_cuenta_html;
 use html\bn_empleado_html;
 use html\bn_sucursal_html;
 use html\bn_tipo_cuenta_html;
 
 
-use html\org_sucursal_html;
 use PDO;
 use stdClass;
 
@@ -74,7 +73,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
         $data_view->name_model_children = 'bn_cuenta';
 
 
-        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__);
+        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__, not_actions: $this->not_actions);
         if(errores::$error){
             return $this->retorno_error(
                 mensaje: 'Error al obtener tbody',data:  $contenido_table, header: $header,ws:  $ws);
