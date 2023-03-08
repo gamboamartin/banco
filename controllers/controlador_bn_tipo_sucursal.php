@@ -72,7 +72,7 @@ class controlador_bn_tipo_sucursal extends _ctl_parent_sin_codigo {
         $data_view->name_model_children = 'bn_sucursal';
 
 
-        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__);
+        $contenido_table = $this->contenido_children(data_view: $data_view, next_accion: __FUNCTION__, not_actions: $this->not_actions);
         if(errores::$error){
             return $this->retorno_error(
                 mensaje: 'Error al obtener tbody',data:  $contenido_table, header: $header,ws:  $ws);

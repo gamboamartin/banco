@@ -200,7 +200,7 @@ class controlador_bn_banco extends _ctl_base {
 
 
         $data_view = new stdClass();
-        $data_view->names = array('Id','Cod','Sucursal','Tipo Sucursal');
+        $data_view->names = array('Id','Cod','Sucursal','Tipo Sucursal','Acciones');
         $data_view->keys_data = array('bn_sucursal_id', 'bn_sucursal_codigo','bn_sucursal_descripcion','bn_tipo_sucursal_descripcion');
         $data_view->key_actions = 'acciones';
         $data_view->namespace_model = 'gamboamartin\\banco\\models';
