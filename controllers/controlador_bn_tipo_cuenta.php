@@ -66,7 +66,7 @@ class controlador_bn_tipo_cuenta extends _ctl_parent_sin_codigo {
 
 
         $data_view = new stdClass();
-        $data_view->names = array('Id','Cod','Cuenta');
+        $data_view->names = array('Id','Cod','Cuenta','Acciones');
         $data_view->keys_data = array('bn_cuenta_id', 'bn_cuenta_codigo','bn_cuenta_descripcion');
         $data_view->key_actions = 'acciones';
         $data_view->namespace_model = 'gamboamartin\\banco\\models';

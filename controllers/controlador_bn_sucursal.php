@@ -11,6 +11,7 @@ namespace gamboamartin\banco\controllers;
 use gamboamartin\banco\models\bn_empleado;
 use gamboamartin\banco\models\bn_sucursal;
 use gamboamartin\errores\errores;
+use gamboamartin\organigrama\html\org_sucursal_html;
 use gamboamartin\system\_ctl_base;
 use gamboamartin\system\links_menu;
 
@@ -21,7 +22,6 @@ use html\bn_sucursal_html;
 
 use html\bn_tipo_cuenta_html;
 use html\bn_tipo_sucursal_html;
-use html\org_sucursal_html;
 use PDO;
 use stdClass;
 
@@ -230,9 +230,9 @@ class controlador_bn_sucursal extends _ctl_base {
 
 
         $data_view = new stdClass();
-        $data_view->names = array('Id','Cod','Cuenta','Banco','Nombre Em','Ap Em','AM Em');
-        $data_view->keys_data = array('bn_cuenta_id', 'bn_cuenta_codigo','bn_sucursal_descripcion','bn_banco.descripcion','bn_empleado.nombre',
-            'bn_empleado.ap','bn_empleado.am');
+        $data_view->names = array('Id','Cod','Cuenta','Banco','Nombre Em','Ap Em','AM Em','Acciones');
+        $data_view->keys_data = array('bn_cuenta_id', 'bn_cuenta_codigo','bn_cuenta_descripcion','bn_banco_descripcion','bn_empleado_nombre',
+            'bn_empleado_ap','bn_empleado_am');
         $data_view->key_actions = 'acciones';
         $data_view->namespace_model = 'gamboamartin\\banco\\models';
         $data_view->name_model_children = 'bn_cuenta';
