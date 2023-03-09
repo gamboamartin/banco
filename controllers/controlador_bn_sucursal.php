@@ -16,6 +16,7 @@ use gamboamartin\system\_ctl_base;
 use gamboamartin\system\links_menu;
 
 use gamboamartin\template\html;
+use html\bn_cuenta_html;
 use html\bn_empleado_html;
 use html\bn_sucursal_html;
 
@@ -125,7 +126,7 @@ class controlador_bn_sucursal extends _ctl_base {
     protected function inputs_children(stdClass $registro): stdClass|array
     {
         $select_bn_tipo_cuenta_id = (new bn_tipo_cuenta_html(html: $this->html_base))->select_bn_tipo_cuenta_id(
-            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -133,7 +134,7 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_org_sucursal_id = (new org_sucursal_html(html: $this->html_base))->select_org_sucursal_id(
-            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -141,7 +142,7 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_bn_empleado_id = (new bn_empleado_html(html: $this->html_base))->select_bn_empleado_id(
-            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+            cols:12,con_registros: true,id_selected:  -1,link:  $this->link);
 
         if(errores::$error){
             return $this->errores->error(
@@ -149,11 +150,18 @@ class controlador_bn_sucursal extends _ctl_base {
         }
 
         $select_bn_sucursal_id = (new bn_sucursal_html(html: $this->html_base))->select_bn_sucursal_id(
-            cols:6,con_registros: true,id_selected:  -1,link:  $this->link);
+            cols:12,con_registros: true,id_selected: $registro->bn_sucursal_id,link:  $this->link, disabled: true);
 
         if(errores::$error){
             return $this->errores->error(
                 mensaje: 'Error al obtener select_bn_sucursal_id',data:  $select_bn_sucursal_id);
+        }
+
+        $bn_cuenta_descripcion = (new bn_cuenta_html(html: $this->html_base))->input_descripcion(
+            cols:12,row_upd:  new stdClass(), value_vacio: true, place_holder: 'Cuenta');
+        if(errores::$error){
+            return $this->errores->error(mensaje: 'Error al obtener bn_cuenta_descripcion',
+                data:  $bn_cuenta_descripcion);
         }
 
 
@@ -163,6 +171,7 @@ class controlador_bn_sucursal extends _ctl_base {
         $this->inputs->select->org_sucursal_id = $select_org_sucursal_id;
         $this->inputs->select->bn_empleado_id = $select_bn_empleado_id;
         $this->inputs->select->bn_sucursal_id = $select_bn_sucursal_id;
+        $this->inputs->bn_cuenta_descripcion = $bn_cuenta_descripcion;
 
         return $this->inputs;
     }
