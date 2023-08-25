@@ -58,7 +58,7 @@
         "gamboa.martin/cat_sat": "^10.0.0",
         "gamboa.martin/direccion_postal": "^12.0.0",
         "gamboa.martin/documento": "^9.0.0",
-        "gamboa.martin/proceso": "^9.0.0",
+        "gamboa.martin/proceso": "^10.0.0",
         "gamboa.martin/organigrama": "^11.0.0"
     },
     "require-dev": {
