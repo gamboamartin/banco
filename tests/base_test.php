@@ -190,6 +190,10 @@ class base_test{
 
     public function del_bn_empleado(PDO $link): array
     {
+        $del = $this->del_bn_cuenta(link: $link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
 
         $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_empleado');
         if(errores::$error){
