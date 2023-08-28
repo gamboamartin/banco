@@ -7,6 +7,7 @@ use gamboamartin\banco\models\bn_sucursal;
 use gamboamartin\banco\models\bn_tipo_cuenta;
 use gamboamartin\errores\errores;
 use gamboamartin\organigrama\models\org_puesto;
+use gamboamartin\organigrama\models\org_sucursal;
 use PDO;
 
 
@@ -46,6 +47,17 @@ class base_test{
             $alta = $this->alta_bn_empleado(link: $link, id: $bn_empleado_id);
             if(errores::$error){
                 return (new errores())->error(mensaje: 'Error al insertar bn_empleado', data: $alta);
+            }
+        }
+
+        $existe = (new org_sucursal(link: $link))->existe_by_id(registro_id: $org_sucursal_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe org_sucursal', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_org_sucursal(link: $link, id: $bn_empleado_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar org_sucursal', data: $alta);
             }
         }
 
@@ -122,6 +134,16 @@ class base_test{
     {
 
         $alta = (new \gamboamartin\organigrama\tests\base_test())->alta_org_puesto(link: $link,id: $id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_org_sucursal(PDO $link, int $id = 1): array|\stdClass
+    {
+
+        $alta = (new \gamboamartin\organigrama\tests\base_test())->alta_org_sucursal(link: $link,id: $id);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
         }
