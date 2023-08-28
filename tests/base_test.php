@@ -15,7 +15,8 @@ class base_test{
 
     public function alta_bn_cuenta(
         PDO $link, int $bn_empleado_id = 1, int $bn_sucursal_id = 1, int $bn_tipo_cuenta_id = 1,
-        string $descripcion = 'CUENTA 1', int $id = 1, int $org_sucursal_id = 1): array|\stdClass
+        int $cat_sat_regimen_fiscal_id = 601, int $cat_sat_tipo_persona_id = 4, string $descripcion = 'CUENTA 1',
+        int $id = 1, int $org_sucursal_id = 1): array|\stdClass
     {
         $existe = (new bn_tipo_cuenta(link: $link))->existe_by_id(registro_id: $bn_tipo_cuenta_id);
         if(errores::$error){
@@ -55,7 +56,8 @@ class base_test{
             return (new errores())->error(mensaje: 'Error al validar si existe org_sucursal', data: $existe);
         }
         if(!$existe){
-            $alta = $this->alta_org_sucursal(link: $link, id: $bn_empleado_id);
+            $alta = $this->alta_org_sucursal(link: $link, cat_sat_regimen_fiscal_id: $cat_sat_regimen_fiscal_id,
+                cat_sat_tipo_persona_id: $cat_sat_tipo_persona_id, id: $bn_empleado_id);
             if(errores::$error){
                 return (new errores())->error(mensaje: 'Error al insertar org_sucursal', data: $alta);
             }
@@ -140,10 +142,13 @@ class base_test{
         return $alta;
     }
 
-    public function alta_org_sucursal(PDO $link, int $id = 1): array|\stdClass
+    public function alta_org_sucursal(PDO $link, int $cat_sat_regimen_fiscal_id = 601, int $cat_sat_tipo_persona_id = 4,
+                                      int $id = 1): array|\stdClass
     {
 
-        $alta = (new \gamboamartin\organigrama\tests\base_test())->alta_org_sucursal(link: $link,id: $id);
+        $alta = (new \gamboamartin\organigrama\tests\base_test())->alta_org_sucursal(link: $link,
+            cat_sat_regimen_fiscal_id: $cat_sat_regimen_fiscal_id, cat_sat_tipo_persona_id: $cat_sat_tipo_persona_id,
+            id: $id);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
         }
