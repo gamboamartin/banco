@@ -12,6 +12,7 @@ class bn_cuenta extends _modelo_parent {
             'bn_tipo_banco'=>'bn_banco','org_empresa'=>'org_sucursal');
         $campos_obligatorios[] = 'descripcion';
         $campos_obligatorios[] = 'descripcion_select';
+        $campos_obligatorios[] = 'bn_tipo_cuenta_id';
 
 
         parent::__construct(link: $link,tabla:  $tabla, campos_obligatorios: $campos_obligatorios,

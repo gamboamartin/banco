@@ -1,12 +1,132 @@
 <?php
-namespace tests;
+namespace gamboamartin\banco\tests;
 use base\orm\modelo_base;
+use gamboamartin\banco\models\bn_cuenta;
+use gamboamartin\banco\models\bn_empleado;
+use gamboamartin\banco\models\bn_sucursal;
+use gamboamartin\banco\models\bn_tipo_cuenta;
 use gamboamartin\errores\errores;
+use gamboamartin\organigrama\models\org_puesto;
 use PDO;
 
 
 class base_test{
 
+    public function alta_bn_cuenta(
+        PDO $link, int $bn_empleado_id = 1, int $bn_sucursal_id = 1, int $bn_tipo_cuenta_id = 1,
+        string $descripcion = 'CUENTA 1', int $id = 1, int $org_sucursal_id = 1): array|\stdClass
+    {
+        $existe = (new bn_tipo_cuenta(link: $link))->existe_by_id(registro_id: $bn_tipo_cuenta_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_tipo_cuenta', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_tipo_cuenta(link: $link, id: $bn_tipo_cuenta_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_tipo_cuenta', data: $alta);
+            }
+        }
+
+        $existe = (new bn_sucursal(link: $link))->existe_by_id(registro_id: $bn_sucursal_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_sucursal', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_sucursal(link: $link, id: $bn_sucursal_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_sucursal', data: $alta);
+            }
+        }
+
+        $existe = (new bn_empleado(link: $link))->existe_by_id(registro_id: $bn_empleado_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_empleado', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_empleado(link: $link, id: $bn_empleado_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_empleado', data: $alta);
+            }
+        }
+
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+        $registro['bn_tipo_cuenta_id'] = $bn_tipo_cuenta_id;
+        $registro['bn_sucursal_id'] = $bn_sucursal_id;
+        $registro['org_sucursal_id'] = $org_sucursal_id;
+        $registro['bn_empleado_id'] = $bn_empleado_id;
+
+        $alta = (new bn_cuenta($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_empleado(PDO $link, string $am = 'AM 1', string $ap = 'AP 1', int $id = 1,
+                                     string $nombre = 'NOMBRE 1', int $org_puesto_id = 1): array|\stdClass
+    {
+
+        $existe = (new org_puesto(link: $link))->existe_by_id(registro_id: $org_puesto_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe org_puesto', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_org_puesto(link: $link, id: $org_puesto_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar org_puesto', data: $alta);
+            }
+        }
+
+        $registro['id'] = $id;
+        $registro['nombre'] = $nombre;
+        $registro['ap'] = $ap;
+        $registro['am'] = $am;
+        $registro['org_puesto_id'] = $org_puesto_id;
+
+
+        $alta = (new bn_empleado($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_sucursal(PDO $link, string $descripcion = 'SUCURSAL 1', int $id = 1): array|\stdClass
+    {
+
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+
+        $alta = (new bn_sucursal($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_tipo_cuenta(PDO $link, string $descripcion = 'TIPO CUENTA 1', int $id = 1): array|\stdClass
+    {
+
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+
+        $alta = (new bn_tipo_cuenta($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_org_puesto(PDO $link, int $id = 1): array|\stdClass
+    {
+
+        $alta = (new \gamboamartin\organigrama\tests\base_test())->alta_org_puesto(link: $link,id: $id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
 
     public function del(PDO $link, string $name_model): array
     {
@@ -15,6 +135,16 @@ class base_test{
         $del = $model->elimina_todo();
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al eliminar '.$name_model, data: $del);
+        }
+        return $del;
+    }
+
+    public function del_adm_seccion(PDO $link): array
+    {
+
+        $del = (new \gamboamartin\administrador\tests\base_test())->del_adm_seccion(link: $link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
         }
         return $del;
     }
@@ -31,6 +161,15 @@ class base_test{
         return $del;
     }
 
+    public function del_bn_empleado(PDO $link): array
+    {
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_empleado');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
 
 
     public function del_bn_sucursal(PDO $link): array
@@ -47,6 +186,21 @@ class base_test{
         return $del;
     }
 
+    public function del_bn_tipo_cuenta(PDO $link): array
+    {
+
+        $del = $this->del_bn_cuenta($link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_tipo_cuenta');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
     public function del_bn_tipo_sucursal(PDO $link): array
     {
 
@@ -57,6 +211,21 @@ class base_test{
         }
 
         $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_tipo_sucursal');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
+    public function del_org_puesto(PDO $link): array
+    {
+
+        $del = $this->del_bn_empleado($link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+
+        $del = (new \gamboamartin\organigrama\tests\base_test())->del_org_puesto(link: $link);
         if(errores::$error){
             return (new errores())->error('Error al eliminar', $del);
         }

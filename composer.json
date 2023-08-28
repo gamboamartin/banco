@@ -15,7 +15,7 @@
           "gamboamartin\\banco\\controllers\\": "controllers",
           "config\\": "config/",
           "gamboamartin\\banco\\models\\": "orm",
-          "tests\\": "tests/",
+          "gamboamartin\\banco\\tests\\": "tests",
           "links\\": "links/",
           "html\\": "templates/directivas/"
 

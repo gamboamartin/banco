@@ -43,6 +43,8 @@ class controlador_bn_tipo_bancoTest extends test {
 
         $adm_namespace['id'] = '1';
         $adm_namespace['descripcion'] = 'gamboa.martin/acl';
+        $adm_namespace['adm_menu_id'] = 1;
+        $adm_namespace['adm_namespace_id'] = 1;
         $alta = (new adm_namespace(link: $this->link))->alta_registro(registro: $adm_namespace);
         if(errores::$error){
             $error = (new errores())->error('Error al insertar', $alta);
@@ -53,6 +55,7 @@ class controlador_bn_tipo_bancoTest extends test {
         $adm_seccion['id'] = '1';
         $adm_seccion['descripcion'] = 'bn_tipo_banco';
         $adm_seccion['adm_menu_id'] = '1';
+        $adm_seccion['adm_namespace_id'] = '1';
         $alta = (new adm_seccion(link: $this->link))->alta_registro(registro: $adm_seccion);
         if(errores::$error){
             $error = (new errores())->error('Error al insertar', $alta);

@@ -1,15 +1,15 @@
 <?php
 namespace tests\controllers;
 
-use gamboamartin\administrador\models\adm_seccion;
-use gamboamartin\banco\controllers\controlador_adm_session;
-use gamboamartin\banco\tests\base_test;
+use gamboamartin\banco\models\bn_cuenta;
+use gamboamartin\banco\models\bn_tipo_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\test\test;
 use stdClass;
+use tests\base_test;
 
 
-class controlador_adm_sessionTest extends test {
+class bn_cuentaTest extends test {
     public errores $errores;
     private stdClass $paths_conf;
     public function __construct(?string $name = null, array $data = [], $dataName = '')
@@ -23,43 +23,53 @@ class controlador_adm_sessionTest extends test {
     }
 
 
-    public function test_denegado(): void
+    public function test_elimina_bd(): void
     {
         errores::$error = false;
 
-        $_GET['seccion'] = 'bn_tipo_sucursal';
+        $_GET['seccion'] = 'cat_sat_tipo_persona';
         $_GET['accion'] = 'lista';
         $_SESSION['grupo_id'] = 1;
         $_SESSION['usuario_id'] = 2;
         $_GET['session_id'] = '1';
 
+        $modelo = new bn_cuenta($this->link);
 
-        $del = (new base_test())->del_adm_seccion(link: $this->link);
+        $del = (new \gamboamartin\banco\tests\base_test())->del_bn_tipo_cuenta($this->link);
         if(errores::$error){
             $error = (new errores())->error('Error al eliminar', $del);
             print_r($error);
             exit;
         }
 
+        $del = (new \gamboamartin\banco\tests\base_test())->del_org_puesto($this->link);
+        if(errores::$error){
+            $error = (new errores())->error('Error al eliminar', $del);
+            print_r($error);
+            exit;
+        }
 
-        $adm_seccion['id'] = '1';
-        $adm_seccion['descripcion'] = 'bn_tipo_sucursal';
-        $adm_seccion['adm_menu_id'] = '1';
-        $adm_seccion['adm_namespace_id'] = '1';
-        $alta = (new adm_seccion(link: $this->link))->alta_registro(registro: $adm_seccion);
+        $resultado = $modelo->elimina_bd(1);
+        $this->assertIsArray($resultado);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+        $alta = (new \gamboamartin\banco\tests\base_test())->alta_bn_cuenta($this->link);
         if(errores::$error){
             $error = (new errores())->error('Error al insertar', $alta);
             print_r($error);
             exit;
         }
 
-        $controler = new controlador_adm_session(link: $this->link,paths_conf: $this->paths_conf);
 
-        $resultado = $controler->denegado(header: false);
+        errores::$error = false;
 
-        $this->assertIsArray($resultado);
+        $resultado = $modelo->elimina_bd(1);
+        $this->assertIsObject($resultado);
         $this->assertNotTrue(errores::$error);
+        $this->assertEquals(1,$resultado->registro['bn_cuenta_id']);
 
+       
         errores::$error = false;
     }
 

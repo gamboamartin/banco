@@ -34,7 +34,7 @@ class bn_tipo_sucursalTest extends test {
 
         $modelo = new bn_tipo_sucursal($this->link);
 
-        $del = (new base_test())->del_bn_tipo_sucursal($this->link);
+        $del = (new \gamboamartin\banco\tests\base_test())->del_bn_tipo_sucursal($this->link);
         if(errores::$error){
             $error = (new errores())->error('Error al eliminar', $del);
             print_r($error);
@@ -70,7 +70,7 @@ class bn_tipo_sucursalTest extends test {
 
         $this->assertIsArray($resultado);
         $this->assertTrue(errores::$error);
-        $this->assertEquals('Error al dar de alta registro en modelo bn_tipo_sucursal', $resultado['mensaje_limpio']);
+        $this->assertEquals('Error al dar de alta registro en database banco  en modelo bn_tipo_sucursal', $resultado['mensaje_limpio']);
         $this->assertEquals('Error al insertar', $resultado['data']['mensaje_limpio']);
         $this->assertEquals('Error al validar alta', $resultado['data']['data']['mensaje_limpio']);
         $this->assertEquals('Error al verificar duplicado', $resultado['data']['data']['data']['mensaje_limpio']);

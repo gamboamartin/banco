@@ -25,6 +25,12 @@ class bn_empleado extends _modelo_parent {
 
     public function alta_bd(array $keys_integra_ds = array('nombre', 'ap','am')): array|stdClass
     {
+        $keys = array('nombre','ap','am');
+        $valida = $this->validacion->valida_existencia_keys(keys: $keys,registro:  $this->registro);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al valida registro',data:  $valida);
+        }
+
         if(!isset($this->registro['descripcion'])){
             $this->registro['descripcion'] = $this->registro['nombre'].' '.$this->registro['ap'].' '.$this->registro['am'];
         }
