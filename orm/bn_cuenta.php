@@ -1,6 +1,7 @@
 <?php
 namespace gamboamartin\banco\models;
 use base\orm\_modelo_parent;
+use gamboamartin\errores\errores;
 use PDO;
 
 class bn_cuenta extends _modelo_parent {
@@ -19,6 +20,19 @@ class bn_cuenta extends _modelo_parent {
             columnas: $columnas);
 
         $this->NAMESPACE = __NAMESPACE__;
+    }
+
+    final public function bn_cuenta_id_default(){
+        $bn_cuenta_id = -1;
+        $bn_cuentas = $this->registros_activos(columnas: array('bn_cuenta_id'));
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al obtener cuentas',data:  $bn_cuentas);
+        }
+        if(count($bn_cuentas) === 1){
+            $bn_cuenta_id = $bn_cuentas[0]['bn_cuenta_id'];
+        }
+        return $bn_cuenta_id;
+
     }
 
 
