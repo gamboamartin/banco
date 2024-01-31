@@ -91,6 +91,11 @@ class controlador_bn_banco extends _ctl_base {
         return $r_alta;
     }
 
+    /**
+     * Initializes the campos_view array.
+     *
+     * @return array The initialized campos_view array.
+     */
     protected function campos_view(): array
     {
         $keys = new stdClass();
