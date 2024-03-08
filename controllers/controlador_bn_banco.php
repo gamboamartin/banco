@@ -60,6 +60,11 @@ class controlador_bn_banco extends _ctl_base {
 
     }
 
+    /**
+     * @param bool $header
+     * @param bool $ws
+     * @return array|string
+     */
     public function alta(bool $header, bool $ws = false): array|string
     {
 
