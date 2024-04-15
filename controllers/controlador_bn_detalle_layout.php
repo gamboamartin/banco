@@ -2,12 +2,12 @@
 
 namespace gamboamartin\banco\controllers;
 
+use gamboamartin\banco\models\bn_detalle_layout;
 use gamboamartin\errores\errores;
 use gamboamartin\system\links_menu;
 use gamboamartin\system\system;
 use gamboamartin\template\html;
 use html\bn_detalle_layout_html;
-use models\bn_detalle_layout;
 use PDO;
 use stdClass;
 
@@ -31,9 +31,6 @@ class controlador_bn_detalle_layout extends system {
         }
 
         $keys_selects = array();
-        $keys_selects['nom_nomina_id'] = new stdClass();
-        $keys_selects['nom_nomina_id']->label = 'Nomina';
-
         $keys_selects['bn_layout_id'] = new stdClass();
         $keys_selects['bn_layout_id']->label = 'Layout';
 
@@ -68,7 +65,7 @@ class controlador_bn_detalle_layout extends system {
     }
 
     public function modifica(bool $header, bool $ws = false, string $breadcrumbs = '', bool $aplica_form = true,
-                             bool $muestra_btn = true): array|string
+                             bool $muestra_btn = true): array|stdClass
     {
         $base = $this->base();
         if(errores::$error){

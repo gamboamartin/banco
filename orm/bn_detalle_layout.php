@@ -12,9 +12,6 @@ class bn_detalle_layout extends modelo{
         $campos_obligatorios = array();
 
         $campos_view = array();
-        $campos_view['nom_nomina_id']['type'] = 'selects';
-        $campos_view['nom_nomina_id']['model'] = (new nom_nomina($link));
-
         $campos_view['bn_layout_id']['type'] = 'selects';
         $campos_view['bn_layout_id']['model'] = (new bn_layout($link));
 

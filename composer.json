@@ -13,8 +13,9 @@
     "autoload": {
         "psr-4": {
           "gamboamartin\\banco\\controllers\\": "controllers",
-          "config\\": "config/",
           "gamboamartin\\banco\\models\\": "orm",
+          "gamboamartin\\banco\\instalacion\\": "instalacion",
+          "config\\": "config/",
           "gamboamartin\\banco\\tests\\": "tests",
           "links\\": "links/",
           "html\\": "templates/directivas/"
