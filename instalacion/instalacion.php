@@ -190,6 +190,23 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
         }
 
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Banco';
+        $adm_seccion_pertenece_descripcion = 'banco';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
         return $create;
     }
 
@@ -198,6 +215,23 @@ class instalacion
         $create = $this->_add_bn_cuenta(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Cuenta';
+        $adm_seccion_pertenece_descripcion = 'cuenta';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
         }
 
         return $create;
@@ -210,6 +244,23 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
         }
 
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Detalle Layout';
+        $adm_seccion_pertenece_descripcion = 'detalle_layout';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
         return $create;
     }
 
@@ -218,6 +269,23 @@ class instalacion
         $create = $this->_add_bn_layout(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Layout';
+        $adm_seccion_pertenece_descripcion = 'layout';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
         }
 
         return $create;
@@ -230,6 +298,23 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
         }
 
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Tipo Banco';
+        $adm_seccion_pertenece_descripcion = 'tipo_banco';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
         return $create;
     }
 
@@ -238,6 +323,23 @@ class instalacion
         $create = $this->_add_bn_tipo_cuenta(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Tipo Cuenta';
+        $adm_seccion_pertenece_descripcion = 'tipo_cuenta';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
         }
 
         return $create;
@@ -250,6 +352,23 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
         }
 
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Tipo Sucursal';
+        $adm_seccion_pertenece_descripcion = 'tipo_sucursal';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
         return $create;
     }
 
@@ -260,6 +379,23 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
         }
 
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Sucursal';
+        $adm_seccion_pertenece_descripcion = 'sucursal';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
         return $create;
     }
 
@@ -267,41 +403,17 @@ class instalacion
     {
         $result = new stdClass();
 
-        $bn_banco = $this->bn_banco(link: $link);
-        if(errores::$error){
-            return (new errores())->error(mensaje: 'Error al ajustar bn_banco', data:  $bn_banco);
-        }
-        $result->bn_banco = $bn_banco;
-
-        $bn_cuenta = $this->bn_banco(link: $link);
-        if(errores::$error){
-            return (new errores())->error(mensaje: 'Error al ajustar bn_cuenta', data:  $bn_cuenta);
-        }
-        $result->bn_cuenta = $bn_cuenta;
-
-        $bn_detalle_layout = $this->bn_detalle_layout(link: $link);
-        if(errores::$error){
-            return (new errores())->error(mensaje: 'Error al ajustar bn_detalle_layout', data:  $bn_detalle_layout);
-        }
-        $result->bn_detalle_layout = $bn_detalle_layout;
-
-        $bn_layout = $this->bn_layout(link: $link);
-        if(errores::$error){
-            return (new errores())->error(mensaje: 'Error al ajustar bn_layout', data:  $bn_layout);
-        }
-        $result->bn_layout = $bn_layout;
-
         $bn_tipo_banco = $this->bn_tipo_banco(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar bn_tipo_banco', data:  $bn_tipo_banco);
         }
         $result->bn_tipo_banco = $bn_tipo_banco;
 
-        $bn_tipo_cuenta = $this->bn_tipo_cuenta(link: $link);
+        $bn_banco = $this->bn_banco(link: $link);
         if(errores::$error){
-            return (new errores())->error(mensaje: 'Error al ajustar bn_tipo_cuenta', data:  $bn_tipo_cuenta);
+            return (new errores())->error(mensaje: 'Error al ajustar bn_banco', data:  $bn_banco);
         }
-        $result->bn_tipo_cuenta = $bn_tipo_cuenta;
+        $result->bn_banco = $bn_banco;
 
         $bn_tipo_sucursal = $this->bn_tipo_sucursal(link: $link);
         if(errores::$error){
@@ -314,6 +426,30 @@ class instalacion
             return (new errores())->error(mensaje: 'Error al ajustar bn_sucursal', data:  $bn_sucursal);
         }
         $result->bn_sucursal = $bn_sucursal;
+
+        $bn_tipo_cuenta = $this->bn_tipo_cuenta(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_tipo_cuenta', data:  $bn_tipo_cuenta);
+        }
+        $result->bn_tipo_cuenta = $bn_tipo_cuenta;
+
+        $bn_cuenta = $this->bn_cuenta(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_cuenta', data:  $bn_cuenta);
+        }
+        $result->bn_cuenta = $bn_cuenta;
+
+        $bn_layout = $this->bn_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_layout', data:  $bn_layout);
+        }
+        $result->bn_layout = $bn_layout;
+
+        $bn_detalle_layout = $this->bn_detalle_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_detalle_layout', data:  $bn_detalle_layout);
+        }
+        $result->bn_detalle_layout = $bn_detalle_layout;
 
         return $result;
 
