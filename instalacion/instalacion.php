@@ -36,6 +36,41 @@ class instalacion
         return $out;
     }
 
+    private function _add_bn_layout(PDO $link): array|stdClass
+    {
+        $out = new stdClass();
+        $init = (new _instalacion(link: $link));
+
+        $create = (new _instalacion(link: $link))->create_table_new(table: 'bn_layout');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al create table', data:  $create);
+        }
+        $out->create = $create;
+
+        $foraneas = array();
+        $foraneas['bn_sucursal_id'] = new stdClass();
+
+        $result = $init->foraneas(foraneas: $foraneas,table:  'bn_layout');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar foranea', data:  $result);
+        }
+
+        $out->foraneas = $result;
+
+        $campos = new stdClass();
+        $campos->fecha_pago = new stdClass();
+        $campos->fecha_pago->tipo_dato = 'DATETIME';
+        $campos->fecha_pago->default = '1900-01-01';
+
+        $result = (new _instalacion(link: $link))->add_columns(campos: $campos,table:  'bn_layout');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar campos', data:  $result);
+        }
+        $out->columnas = $result;
+
+        return $out;
+    }
+
     private function _add_bn_tipo_banco(PDO $link): array|stdClass
     {
         $out = new stdClass();
@@ -107,6 +142,16 @@ class instalacion
         return $create;
     }
 
+    private function bn_layout(PDO $link): array|stdClass
+    {
+        $create = $this->_add_bn_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        return $create;
+    }
+
     private function bn_tipo_banco(PDO $link): array|stdClass
     {
         $create = $this->_add_bn_tipo_banco(link: $link);
@@ -157,6 +202,12 @@ class instalacion
         }
         $result->bn_banco = $bn_banco;
 
+        $bn_layout = $this->bn_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_layout', data:  $bn_layout);
+        }
+        $result->bn_layout = $bn_layout;
+
         $bn_tipo_banco = $this->bn_tipo_banco(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar bn_tipo_banco', data:  $bn_tipo_banco);
@@ -192,6 +243,7 @@ class instalacion
 
         $modelos = array();
         $modelos[] = 'bn_banco';
+        $modelos[] = 'bn_layout';
         $modelos[] = 'bn_tipo_banco';
         $modelos[] = 'bn_tipo_cuenta';
         $modelos[] = 'bn_tipo_sucursal';
