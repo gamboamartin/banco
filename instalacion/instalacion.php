@@ -36,6 +36,57 @@ class instalacion
         return $out;
     }
 
+    private function _add_bn_cuenta(PDO $link): array|stdClass
+    {
+        $out = new stdClass();
+        $init = (new _instalacion(link: $link));
+
+        $create = (new _instalacion(link: $link))->create_table_new(table: 'bn_cuenta');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al create table', data:  $create);
+        }
+        $out->create = $create;
+
+        $foraneas = array();
+        $foraneas['bn_tipo_cuenta_id'] = new stdClass();
+        $foraneas['bn_sucursal_id'] = new stdClass();
+        $foraneas['org_sucursal_id'] = new stdClass();
+
+        $result = $init->foraneas(foraneas: $foraneas,table:  'bn_cuenta');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar foranea', data:  $result);
+        }
+
+        $out->foraneas = $result;
+
+        return $out;
+    }
+
+    private function _add_bn_detalle_layout(PDO $link): array|stdClass
+    {
+        $out = new stdClass();
+        $init = (new _instalacion(link: $link));
+
+        $create = (new _instalacion(link: $link))->create_table_new(table: 'bn_detalle_layout');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al create table', data:  $create);
+        }
+        $out->create = $create;
+
+        $foraneas = array();
+        $foraneas['bn_layout_id'] = new stdClass();
+
+        $result = $init->foraneas(foraneas: $foraneas,table:  'bn_detalle_layout');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar foranea', data:  $result);
+        }
+
+        $out->foraneas = $result;
+
+        return $out;
+    }
+
+
     private function _add_bn_layout(PDO $link): array|stdClass
     {
         $out = new stdClass();
@@ -142,6 +193,26 @@ class instalacion
         return $create;
     }
 
+    private function bn_cuenta(PDO $link): array|stdClass
+    {
+        $create = $this->_add_bn_cuenta(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        return $create;
+    }
+
+    private function bn_detalle_layout(PDO $link): array|stdClass
+    {
+        $create = $this->_add_bn_detalle_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        return $create;
+    }
+
     private function bn_layout(PDO $link): array|stdClass
     {
         $create = $this->_add_bn_layout(link: $link);
@@ -202,6 +273,18 @@ class instalacion
         }
         $result->bn_banco = $bn_banco;
 
+        $bn_cuenta = $this->bn_banco(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_cuenta', data:  $bn_cuenta);
+        }
+        $result->bn_cuenta = $bn_cuenta;
+
+        $bn_detalle_layout = $this->bn_detalle_layout(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_detalle_layout', data:  $bn_detalle_layout);
+        }
+        $result->bn_detalle_layout = $bn_detalle_layout;
+
         $bn_layout = $this->bn_layout(link: $link);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al ajustar bn_layout', data:  $bn_layout);
@@ -243,6 +326,8 @@ class instalacion
 
         $modelos = array();
         $modelos[] = 'bn_banco';
+        $modelos[] = 'bn_cuenta';
+        $modelos[] = 'bn_detalle_layout';
         $modelos[] = 'bn_layout';
         $modelos[] = 'bn_tipo_banco';
         $modelos[] = 'bn_tipo_cuenta';
