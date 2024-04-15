@@ -1,6 +1,7 @@
 <?php
 namespace tests\controllers;
 
+use gamboamartin\administrador\instalacion\instalacion;
 use gamboamartin\administrador\models\adm_seccion;
 use gamboamartin\banco\controllers\controlador_adm_session;
 use gamboamartin\banco\tests\base_test;
@@ -33,6 +34,13 @@ class controlador_adm_sessionTest extends test {
         $_SESSION['usuario_id'] = 2;
         $_GET['session_id'] = '1';
 
+
+        $instala = (new instalacion())->instala(link: $this->link);
+        if(errores::$error){
+            $error = (new errores())->error('Error al instala', $instala);
+            print_r($error);
+            exit;
+        }
 
         $del = (new base_test())->del_adm_seccion(link: $this->link);
         if(errores::$error){
