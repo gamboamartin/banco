@@ -62,7 +62,6 @@
         "gamboa.martin/proceso": "^23.0.0",
         "gamboa.martin/organigrama": "^27.0.0",
       "phpunit/phpunit": "^10.0.0"
-
     },
     "require-dev": {
 
