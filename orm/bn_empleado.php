@@ -9,8 +9,7 @@ class bn_empleado extends _modelo_parent {
 
     public function __construct(PDO $link){
         $tabla = 'bn_empleado';
-        $columnas = array($tabla=>false,'org_puesto'=>$tabla,'org_departamento'=>'org_puesto',
-            'org_tipo_puesto'=>'org_puesto','org_empresa'=>'org_departamento','org_clasificacion_dep'=>'org_departamento');
+        $columnas = array($tabla=>false);
         $campos_obligatorios[] = 'descripcion';
         $campos_obligatorios[] = 'descripcion_select';
 

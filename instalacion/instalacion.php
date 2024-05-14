@@ -122,6 +122,18 @@ class instalacion
         return $out;
     }
 
+    private function _add_bn_empleado(PDO $link): array|stdClass
+    {
+        $out = new stdClass();
+        $create = (new _instalacion(link: $link))->create_table_new(table: 'bn_empleado');
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al create table', data:  $create);
+        }
+        $out->create = $create;
+
+        return $out;
+    }
+
     private function _add_bn_tipo_banco(PDO $link): array|stdClass
     {
         $out = new stdClass();
@@ -291,6 +303,33 @@ class instalacion
         return $create;
     }
 
+    private function bn_empleado(PDO $link): array|stdClass
+    {
+        $create = $this->_add_bn_empleado(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar create', data:  $create);
+        }
+
+        $adm_menu_descripcion = 'Banco';
+        $adm_sistema_descripcion = 'banco';
+        $etiqueta_label = 'Tipo Banco';
+        $adm_seccion_pertenece_descripcion = 'empleado';
+        $adm_namespace_name = 'gamboamartin/banco';
+        $adm_namespace_descripcion = 'gamboa.martin/banco';
+
+        $acl = (new _adm())->integra_acl(adm_menu_descripcion: $adm_menu_descripcion,
+            adm_namespace_name: $adm_namespace_name, adm_namespace_descripcion: $adm_namespace_descripcion,
+            adm_seccion_descripcion: __FUNCTION__,
+            adm_seccion_pertenece_descripcion: $adm_seccion_pertenece_descripcion,
+            adm_sistema_descripcion: $adm_sistema_descripcion,
+            etiqueta_label: $etiqueta_label, link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al obtener acl', data:  $acl);
+        }
+
+        return $create;
+    }
+
     private function bn_tipo_banco(PDO $link): array|stdClass
     {
         $create = $this->_add_bn_tipo_banco(link: $link);
@@ -402,6 +441,12 @@ class instalacion
     final public function instala(PDO $link): array|stdClass
     {
         $result = new stdClass();
+
+        $bn_empleado = $this->bn_empleado(link: $link);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al ajustar bn_empleado', data:  $bn_empleado);
+        }
+        $result->bn_empleado = $bn_empleado;
 
         $bn_tipo_banco = $this->bn_tipo_banco(link: $link);
         if(errores::$error){

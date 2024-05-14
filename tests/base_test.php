@@ -1,10 +1,13 @@
 <?php
 namespace gamboamartin\banco\tests;
 use base\orm\modelo_base;
+use gamboamartin\banco\models\bn_banco;
 use gamboamartin\banco\models\bn_cuenta;
 use gamboamartin\banco\models\bn_empleado;
 use gamboamartin\banco\models\bn_sucursal;
+use gamboamartin\banco\models\bn_tipo_banco;
 use gamboamartin\banco\models\bn_tipo_cuenta;
+use gamboamartin\banco\models\bn_tipo_sucursal;
 use gamboamartin\errores\errores;
 use gamboamartin\organigrama\models\org_puesto;
 use gamboamartin\organigrama\models\org_sucursal;
@@ -106,13 +109,74 @@ class base_test{
         return $alta;
     }
 
-    public function alta_bn_sucursal(PDO $link, string $descripcion = 'SUCURSAL 1', int $id = 1): array|\stdClass
+    public function alta_bn_banco(PDO $link, int $bn_tipo_banco_id = 1,string $descripcion = 'banco 1', int $id = 1): array|\stdClass
+    {
+
+        $existe = (new bn_tipo_banco(link: $link))->existe_by_id(registro_id: $bn_tipo_banco_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_tipo_bancoid', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_tipo_banco(link: $link, id: $bn_tipo_banco_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_tipo_bancoid', data: $alta);
+            }
+        }
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+        $registro['bn_tipo_banco_id'] = $bn_tipo_banco_id;
+
+        $alta = (new bn_banco($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_sucursal(PDO $link, int $bn_banco_id = 1, int $bn_tipo_sucursal_id = 1,
+                                     string $descripcion = 'SUCURSAL 1', int $id = 1): array|\stdClass
+    {
+        $existe = (new bn_banco(link: $link))->existe_by_id(registro_id: $bn_banco_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_banco', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_banco(link: $link, id: $bn_banco_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_banco', data: $alta);
+            }
+        }
+
+        $existe = (new bn_tipo_sucursal(link: $link))->existe_by_id(registro_id: $bn_tipo_sucursal_id);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al validar si existe bn_tipo_sucursal', data: $existe);
+        }
+        if(!$existe){
+            $alta = $this->alta_bn_tipo_sucursal(link: $link, id: $bn_tipo_sucursal_id);
+            if(errores::$error){
+                return (new errores())->error(mensaje: 'Error al insertar bn_tipo_sucursal', data: $alta);
+            }
+        }
+
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+        $registro['bn_banco_id'] = $bn_banco_id;
+        $registro['bn_tipo_sucursal_id'] = $bn_tipo_sucursal_id;
+
+        $alta = (new bn_sucursal($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_tipo_banco(PDO $link, string $descripcion = 'TIPO BANCO 1', int $id = 1): array|\stdClass
     {
 
         $registro['id'] = $id;
         $registro['descripcion'] = $descripcion;
 
-        $alta = (new bn_sucursal($link))->alta_registro($registro);
+        $alta = (new bn_tipo_banco($link))->alta_registro($registro);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
         }
@@ -126,6 +190,19 @@ class base_test{
         $registro['descripcion'] = $descripcion;
 
         $alta = (new bn_tipo_cuenta($link))->alta_registro($registro);
+        if(errores::$error){
+            return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
+        }
+        return $alta;
+    }
+
+    public function alta_bn_tipo_sucursal(PDO $link, string $descripcion = 'TIPO SUCURSAL 1', int $id = 1): array|\stdClass
+    {
+
+        $registro['id'] = $id;
+        $registro['descripcion'] = $descripcion;
+
+        $alta = (new bn_tipo_sucursal($link))->alta_registro($registro);
         if(errores::$error){
             return (new errores())->error(mensaje: 'Error al insertar', data: $alta);
         }
