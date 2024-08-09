@@ -17,9 +17,9 @@ use PDO;
 class base_test{
 
     public function alta_bn_cuenta(
-        PDO $link, int $bn_empleado_id = 1, int $bn_sucursal_id = 1, int $bn_tipo_cuenta_id = 1,
-        int $cat_sat_regimen_fiscal_id = 601, int $cat_sat_tipo_persona_id = 4, string $descripcion = 'CUENTA 1',
-        int $id = 1, int $org_sucursal_id = 1): array|\stdClass
+        PDO $link, int $bn_empleado_id = 1, string $bn_sucursal_codigo = '001', int $bn_sucursal_id = 1,
+        int $bn_tipo_cuenta_id = 1, int $cat_sat_regimen_fiscal_id = 601, int $cat_sat_tipo_persona_id = 4,
+        string $descripcion = 'CUENTA 1', int $id = 1, int $org_sucursal_id = 1): array|\stdClass
     {
         $existe = (new bn_tipo_cuenta(link: $link))->existe_by_id(registro_id: $bn_tipo_cuenta_id);
         if(errores::$error){
@@ -37,7 +37,7 @@ class base_test{
             return (new errores())->error(mensaje: 'Error al validar si existe bn_sucursal', data: $existe);
         }
         if(!$existe){
-            $alta = $this->alta_bn_sucursal(link: $link, id: $bn_sucursal_id);
+            $alta = $this->alta_bn_sucursal(link: $link, codigo: $bn_sucursal_codigo, id: $bn_sucursal_id);
             if(errores::$error){
                 return (new errores())->error(mensaje: 'Error al insertar bn_sucursal', data: $alta);
             }
@@ -134,7 +134,8 @@ class base_test{
     }
 
     public function alta_bn_sucursal(PDO $link, int $bn_banco_id = 1, int $bn_tipo_sucursal_id = 1,
-                                     string $descripcion = 'SUCURSAL 1', int $id = 1): array|\stdClass
+                                     string $codigo = '001', string $descripcion = 'SUCURSAL 1',
+                                     int $id = 1): array|\stdClass
     {
         $existe = (new bn_banco(link: $link))->existe_by_id(registro_id: $bn_banco_id);
         if(errores::$error){
@@ -162,6 +163,7 @@ class base_test{
         $registro['descripcion'] = $descripcion;
         $registro['bn_banco_id'] = $bn_banco_id;
         $registro['bn_tipo_sucursal_id'] = $bn_tipo_sucursal_id;
+        $registro['codigo'] = $codigo;
 
         $alta = (new bn_sucursal($link))->alta_registro($registro);
         if(errores::$error){
@@ -303,6 +305,34 @@ class base_test{
         }
 
         $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_tipo_cuenta');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
+    public function del_bn_banco(PDO $link): array
+    {
+        $del = $this->del_bn_sucursal($link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_banco');
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+        return $del;
+    }
+
+    public function del_bn_tipo_banco(PDO $link): array
+    {
+        $del = $this->del_bn_banco($link);
+        if(errores::$error){
+            return (new errores())->error('Error al eliminar', $del);
+        }
+
+        $del = $this->del($link, 'gamboamartin\\banco\\models\\bn_tipo_banco');
         if(errores::$error){
             return (new errores())->error('Error al eliminar', $del);
         }

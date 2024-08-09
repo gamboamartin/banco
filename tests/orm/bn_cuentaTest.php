@@ -29,11 +29,18 @@ class bn_cuentaTest extends test {
 
         $_GET['seccion'] = 'cat_sat_tipo_persona';
         $_GET['accion'] = 'lista';
-        $_SESSION['grupo_id'] = 1;
+        $_SESSION['grupo_id'] = 2;
         $_SESSION['usuario_id'] = 2;
         $_GET['session_id'] = '1';
 
         $modelo = new bn_cuenta($this->link);
+
+        $del = (new \gamboamartin\banco\tests\base_test())->del_bn_tipo_banco($this->link);
+        if(errores::$error){
+            $error = (new errores())->error('Error al eliminar', $del);
+            print_r($error);
+            exit;
+        }
 
         $del = (new \gamboamartin\banco\tests\base_test())->del_bn_tipo_cuenta($this->link);
         if(errores::$error){
